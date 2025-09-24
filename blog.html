@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Blog - Tutorials, Process & Inspiration | Koji's Art Studio</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Read Koji's art blog for digital art tutorials, behind-the-scenes process insights, and creative inspiration. Learn character design, digital painting techniques, and art tips.">
+    <meta name="keywords" content="art blog, digital art tutorials, character design tutorial, art process, digital painting tips, art inspiration, creative process">
+    <meta name="author" content="Koji">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://kojisartstudio.com/blog.html">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Art Blog - Tutorials, Process & Inspiration | Koji's Art Studio">
+    <meta property="og:description" content="Read Koji's art blog for digital art tutorials, behind-the-scenes process insights, and creative inspiration. Learn character design, digital painting techniques, and art tips.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kojisartstudio.com/blog.html">
+    <meta property="og:image" content="https://kojisartstudio.com/assets/images/blog-og.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Koji's Art Studio">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Art Blog - Tutorials, Process & Inspiration | Koji's Art Studio">
+    <meta name="twitter:description" content="Read Koji's art blog for digital art tutorials, behind-the-scenes process insights, and creative inspiration. Learn character design, digital painting techniques, and art tips.">
+    <meta name="twitter:image" content="https://kojisartstudio.com/assets/images/blog-og.jpg">
+
+    <!-- Additional SEO -->
+    <meta name="theme-color" content="#ff6b9d">
+    <meta name="msapplication-TileColor" content="#ff6b9d">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/background.css">
+    <link rel="stylesheet" href="assets/css/corkboard.css">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "Koji's Art Blog",
+      "description": "Digital art tutorials, behind-the-scenes process insights, and creative inspiration",
+      "url": "https://kojisartstudio.com/blog.html",
+      "author": {
+        "@type": "Person",
+        "name": "Koji",
+        "jobTitle": "Digital Artist",
+        "description": "Passionate digital artist specializing in character design and fan art"
+      },
+      "mainEntity": {
+        "@type": "ItemList",
+        "name": "Blog Posts",
+        "description": "Latest blog posts about digital art and creative process",
+        "itemListElement": [
+          {
+            "@type": "BlogPosting",
+            "headline": "My Digital Art Journey",
+            "description": "Join me as I share my experiences, tips, and the stories behind my favorite pieces. From my first digital drawing tablet to creating complex character illustrations.",
+            "image": "https://kojisartstudio.com/assets/images/placeholder-blog.jpg",
+            "datePublished": "2024-09-15",
+            "dateModified": "2024-09-15",
+            "author": {
+              "@type": "Person",
+              "name": "Koji"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Koji"
+            },
+            "wordCount": 450,
+            "timeRequired": "PT5M",
+            "keywords": "digital art journey, art process, character illustration, digital drawing"
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "Character Design Basics",
+            "description": "Learn the fundamental principles of character design, from initial sketches to final digital illustrations.",
+            "image": "https://kojisartstudio.com/assets/images/placeholder-tutorial.jpg",
+            "datePublished": "2024-09-10",
+            "dateModified": "2024-09-10",
+            "author": {
+              "@type": "Person",
+              "name": "Koji"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Koji"
+            },
+            "wordCount": 680,
+            "timeRequired": "PT8M",
+            "keywords": "character design, digital illustration, art tutorial, concept art"
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "Finding Inspiration",
+            "description": "Discover sources of creative inspiration and learn how to overcome artist's block in your digital art journey.",
+            "image": "https://kojisartstudio.com/assets/images/placeholder-inspiration.jpg",
+            "datePublished": "2024-09-05",
+            "dateModified": "2024-09-05",
+            "author": {
+              "@type": "Person",
+              "name": "Koji"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Koji"
+            },
+            "wordCount": 520,
+            "timeRequired": "PT6M",
+            "keywords": "art inspiration, creative process, artist's block, digital art tips"
+          }
+        ]
+      }
+    }
+    </script>
+
+    <!-- Blog specific styles -->
+    <style>
+        .blog-hero {
+            padding: var(--space-2xl) 0;
+            text-align: center;
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .blog-post {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border: 2px solid var(--light-pink);
+        }
+        
+        .blog-post:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--pink);
+        }
+        
+        .blog-post-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .blog-post-content {
+            padding: var(--space-lg);
+        }
+        
+        .blog-post-title {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--space-sm);
+            color: var(--black);
+        }
+        
+        .blog-post-meta {
+            font-size: var(--font-size-sm);
+            color: var(--gray);
+            margin-bottom: var(--space-md);
+        }
+        
+        .blog-post-excerpt {
+            margin-bottom: var(--space-md);
+            line-height: 1.6;
+        }
+        
+        .blog-post-actions {
+            display: flex;
+            gap: var(--space-sm);
+            align-items: center;
+        }
+        
+        .btn-read-more {
+            background: var(--pink);
+            color: var(--white);
+            border: 2px solid var(--purple);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm) var(--space-md);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: var(--font-size-sm);
+        }
+        
+        .btn-read-more:hover {
+            background: var(--purple);
+            transform: translateY(-2px);
+        }
+        
+        .share-button {
+            background: var(--light-purple);
+            color: var(--black);
+            border: 2px solid var(--purple);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: var(--font-size-sm);
+        }
+        
+        .share-button:hover {
+            background: var(--purple);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+        
+        /* Expanded post styles */
+        .blog-post.expanded {
+            grid-column: 1 / -1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .blog-post-content.expanded {
+            padding: var(--space-2xl);
+        }
+        
+        .blog-post-full {
+            display: none;
+            margin-top: var(--space-lg);
+            padding-top: var(--space-lg);
+            border-top: 2px solid var(--light-pink);
+        }
+        
+        .blog-post.expanded .blog-post-full {
+            display: block;
+        }
+        
+        .blog-post-full img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-md);
+            margin: var(--space-md) 0;
+        }
+        
+        .blog-post-full blockquote {
+            border-left: 4px solid var(--pink);
+            padding-left: var(--space-md);
+            margin: var(--space-md) 0;
+            font-style: italic;
+            color: var(--gray);
+        }
+        
+        .blog-post-actions.expanded {
+            justify-content: space-between;
+            margin-top: var(--space-lg);
+        }
+        
+        .btn-collapse {
+            background: var(--gray);
+            color: var(--white);
+            border: 2px solid var(--black);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm) var(--space-md);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: var(--font-size-sm);
+        }
+        
+        .btn-collapse:hover {
+            background: var(--black);
+        }
+        
+        /* Blog navigation */
+        .blog-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: var(--space-2xl) 0;
+            padding: var(--space-md) 0;
+            border-top: 2px solid var(--light-pink);
+            border-bottom: 2px solid var(--light-pink);
+        }
+        
+        .blog-nav-button {
+            background: var(--lighter-pink);
+            color: var(--black);
+            border: 2px solid var(--pink);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm) var(--space-md);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .blog-nav-button:hover {
+            background: var(--pink);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+        
+        .blog-nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .blog-nav-button:disabled:hover {
+            background: var(--lighter-pink);
+            color: var(--black);
+            transform: none;
+        }
+        
+        /* Filter controls */
+        .blog-controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: var(--space-xl);
+        }
+        
+        .filter-select {
+            padding: var(--space-sm);
+            border: 2px solid var(--light-pink);
+            border-radius: var(--radius-md);
+            font-family: var(--font-primary);
+            font-size: var(--font-size-base);
+            background: var(--white);
+            cursor: pointer;
+        }
+        
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
+            
+            .blog-post.expanded .blog-post-content {
+                padding: var(--space-lg);
+            }
+            
+            .blog-controls {
+                margin-bottom: var(--space-lg);
+            }
+            
+            .blog-navigation {
+                flex-direction: column;
+                gap: var(--space-md);
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Links for Accessibility --><!-- Header -->
+    <header class="site-header">
+        <div class="header-container">
+            <div class="logo">
+                <h1>Koji's Art Studio</h1>
+            </div>
+            
+            <nav class="main-nav" id="navigation">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                    <li><a href="blog.html" class="nav-link active">Blog</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="cart-button" aria-label="Shopping cart">
+                    <span class="cart-icon">🛒</span>
+                    <span class="cart-counter">0</span>
+                </button>
+                <button class="hamburger-menu" aria-label="Toggle navigation">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+        <ul class="mobile-nav-list">
+            <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+            <li><a href="gallery.html" class="mobile-nav-link">Gallery</a></li>
+            <li><a href="blog.html" class="mobile-nav-link active">Blog</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Blog Hero -->
+        <section class="blog-hero">
+            <div class="container">
+                <h2>Art Blog</h2>
+                <p>Behind-the-scenes stories, tutorials, and thoughts on digital art</p>
+                
+                <!-- Blog Controls -->
+            </div>
+        </section>
+
+        <!-- Blog Posts -->
+        <section class="blog-posts">
+            <div class="container">
+                <div class="blog-grid" id="blogGrid">
+                    <!-- Blog Post 1 -->
+                    <article class="blog-post" data-slug="my-digital-art-journey">
+                        <img src="assets/images/placeholder-blog.jpg" alt="Digital Art Journey" class="blog-post-image">
+                        <div class="blog-post-content">
+                            <h3 class="blog-post-title">My Digital Art Journey</h3>
+                            <div class="blog-post-meta">
+                                <span class="meta-date">September 15, 2024</span>
+                                <span class="meta-category">Process</span>
+                                <span class="meta-read-time">5 min read</span>
+                            </div>
+                            <div class="blog-post-excerpt">
+                                Join me as I share my experiences, tips, and the stories behind my favorite pieces. From my first digital drawing tablet to creating complex character illustrations, here's how I got started in digital art.
+                            </div>
+                            <div class="blog-post-actions">
+                                <button class="btn-read-more" data-post="my-digital-art-journey">Read More</button>
+                                <button class="share-button" data-share="my-digital-art-journey">Share</button>
+                            </div>
+                            
+                            <!-- Full post content (hidden by default) -->
+                            <div class="blog-post-full">
+                                <h4>Getting Started with Digital Art</h4>
+                                <p>It all began when I received my first drawing tablet as a birthday gift. I remember being both excited and intimidated by this new tool. The transition from traditional pencil and paper to a digital stylus felt awkward at first, but the possibilities were endless.</p>
+                                
+                                <img src="assets/images/placeholder-process1.jpg" alt="First digital sketches" class="blog-image">
+                                
+                                <p>The key was patience and practice. I started with simple exercises - drawing basic shapes, experimenting with different brushes, and learning about layers. Each small victory built my confidence.</p>
+                                
+                                <h4>Finding My Style</h4>
+                                <p>One of the most challenging aspects was developing my own artistic voice. I experimented with various styles - realistic portraits, cartoon characters, abstract designs - until I found what resonated with me most: vibrant character illustrations with a focus on storytelling.</p>
+                                
+                                <blockquote>
+                                    "Art is not about perfection. It's about connection and expression."
+                                </blockquote>
+                                
+                                <p>My style evolved through constant experimentation and learning from other artists. Online communities and tutorials played a crucial role in my development.</p>
+                                
+                                <h4>Tools and Techniques</h4>
+                                <p>Today, I use a combination of digital tools that help bring my visions to life. From sketching initial concepts to adding final details, each step in my process has been refined over years of practice.</p>
+                                
+                                <img src="assets/images/placeholder-process2.jpg" alt="Digital workspace" class="blog-image">
+                                
+                                <p>Remember, every great artist started as a beginner. The journey is just as important as the destination.</p>
+                                
+                                <div class="blog-post-actions expanded">
+                                    <button class="btn-collapse" data-post="my-digital-art-journey">Collapse</button>
+                                    <button class="share-button" data-share="my-digital-art-journey">Share</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Blog Post 2 -->
+                    <article class="blog-post" data-slug="character-design-basics">
+                        <img src="assets/images/placeholder-tutorial.jpg" alt="Character Design Basics" class="blog-post-image">
+                        <div class="blog-post-content">
+                            <h3 class="blog-post-title">Character Design Basics</h3>
+                            <div class="blog-post-meta">
+                                <span class="meta-date">September 8, 2024</span>
+                                <span class="meta-category">Tutorial</span>
+                                <span class="meta-read-time">8 min read</span>
+                            </div>
+                            <div class="blog-post-excerpt">
+                                Learn the fundamentals of character design in this comprehensive tutorial. We'll cover concept development, silhouette design, color theory, and bringing characters to life.
+                            </div>
+                            <div class="blog-post-actions">
+                                <button class="btn-read-more" data-post="character-design-basics">Read More</button>
+                                <button class="share-button" data-share="character-design-basics">Share</button>
+                            </div>
+                            
+                            <div class="blog-post-full">
+                                <h4>1. Concept Development</h4>
+                                <p>Every great character starts with a strong concept. Ask yourself: What's their role? What makes them unique? What's their backstory?</p>
+                                
+                                <h4>2. Silhouette Design</h4>
+                                <p>A character's silhouette should be readable from a distance. Focus on clear, distinctive shapes that communicate personality and function.</p>
+                                
+                                <h4>3. Color Theory</h4>
+                                <p>Colors can convey emotion, personality, and cultural associations. Use them intentionally to enhance your character design.</p>
+                                
+                                <div class="blog-post-actions expanded">
+                                    <button class="btn-collapse" data-post="character-design-basics">Collapse</button>
+                                    <button class="share-button" data-share="character-design-basics">Share</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Blog Post 3 -->
+                    <article class="blog-post" data-slug="finding-inspiration">
+                        <img src="assets/images/placeholder-inspo.jpg" alt="Finding Inspiration" class="blog-post-image">
+                        <div class="blog-post-content">
+                            <h3 class="blog-post-title">Finding Inspiration Everywhere</h3>
+                            <div class="blog-post-meta">
+                                <span class="meta-date">September 1, 2024</span>
+                                <span class="meta-category">Inspiration</span>
+                                <span class="meta-read-time">4 min read</span>
+                            </div>
+                            <div class="blog-post-excerpt">
+                                Feeling stuck creatively? Discover how to find inspiration in unexpected places and keep your artistic well filled with fresh ideas and motivation.
+                            </div>
+                            <div class="blog-post-actions">
+                                <button class="btn-read-more" data-post="finding-inspiration">Read More</button>
+                                <button class="share-button" data-share="finding-inspiration">Share</button>
+                            </div>
+                            
+                            <div class="blog-post-full">
+                                <p>Inspiration can come from anywhere - a walk in nature, a conversation with a friend, or even the patterns on your coffee cup. The key is to stay open and curious.</p>
+                                
+                                <h4>Daily Practices</h4>
+                                <ul>
+                                    <li>Keep a sketchbook handy</li>
+                                    <li>Take reference photos</li>
+                                    <li>Study other artists' work</li>
+                                    <li>Experiment without judgment</li>
+                                </ul>
+                                
+                                <div class="blog-post-actions expanded">
+                                    <button class="btn-collapse" data-post="finding-inspiration">Collapse</button>
+                                    <button class="share-button" data-share="finding-inspiration">Share</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                
+                <!-- Blog Navigation -->
+                <div class="blog-navigation">
+                    <button class="blog-nav-button" id="prevPage" disabled>
+                        ← Previous Posts
+                    </button>
+                    <span class="blog-nav-info">Page 1 of 1</span>
+                    <button class="blog-nav-button" id="nextPage" disabled>
+                        Next Posts →
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Connect With Me</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+                        <a href="#" class="social-link" aria-label="Instagram">📷</a>
+                        <a href="#" class="social-link" aria-label="DeviantArt">🎨</a>
+                        <a href="#" class="social-link" aria-label="Discord">💬</a>
+                        <a href="#" class="social-link" aria-label="Email">✉️</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Stay updated with my latest art and blog posts!</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Koji's Art Studio. Made with 💖 and lots of coffee.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/cart.js"></script>
+    <script src="assets/js/blog.js"></script>
+</body>
+</html>

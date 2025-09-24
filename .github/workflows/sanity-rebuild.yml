@@ -1,0 +1,52 @@
+name: Rebuild on Sanity Changes
+
+on:
+  repository_dispatch:
+    types: [sanity_webhook]
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: |
+        npm ci
+
+    - name: Rebuild static site
+      run: |
+        # If you have a build script, run it here
+        # npm run build
+
+        echo "Site rebuild triggered by Sanity webhook"
+        echo "Content changes will be reflected on next deployment"
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'GitHub Actions Bot'
+        git config --global user.email 'actions@github.com'
+
+        # Check if there are any changes
+        if [ -n "$(git status --porcelain)" ]; then
+          git add .
+          git commit -m "chore: rebuild site after content changes [skip ci]"
+          git push
+        else
+          echo "No changes to commit"
+        fi
+
+    - name: Trigger GitHub Pages rebuild
+      run: |
+        # GitHub Pages will automatically rebuild on push to main branch
+        echo "GitHub Pages will rebuild automatically on push to main"

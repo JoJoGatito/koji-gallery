@@ -1,0 +1,566 @@
+{
+  "artworks": [
+    {
+      "_id": "sample-oc-1",
+      "_type": "artwork",
+      "title": "Ethereal Dreamscape",
+      "slug": {
+        "_type": "slug",
+        "current": "ethereal-dreamscape"
+      },
+      "category": "OC",
+      "description": [
+        {
+          "_key": "block1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "child1",
+              "_type": "span",
+              "marks": [],
+              "text": "A mesmerizing original character piece featuring a mystical guardian of forgotten realms. This artwork captures the essence of dreams and fantasy, with intricate details and a hauntingly beautiful color palette that draws viewers into another world."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "price": 125.00,
+      "currency": "USD",
+      "availability": "Available",
+      "heroImage": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-placeholder-1",
+          "_type": "reference"
+        }
+      },
+      "images": [
+        {
+          "_key": "img1",
+          "_type": "image",
+          "asset": {
+            "_ref": "image-placeholder-2",
+            "_type": "reference"
+          }
+        },
+        {
+          "_key": "img2",
+          "_type": "image",
+          "asset": {
+            "_ref": "image-placeholder-3",
+            "_type": "reference"
+          }
+        }
+      ],
+      "tags": ["fantasy", "character", "mystical", "dreams"],
+      "featured": true,
+      "publishedAt": "2024-09-15T10:00:00Z",
+      "stripePaymentLink": "https://buy.stripe.com/test_sample_link_1"
+    },
+    {
+      "_id": "sample-oc-2",
+      "_type": "artwork",
+      "title": "Cyberpunk Outlaw",
+      "slug": {
+        "_type": "slug",
+        "current": "cyberpunk-outlaw"
+      },
+      "category": "OC",
+      "description": [
+        {
+          "_key": "block1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "child1",
+              "_type": "span",
+              "marks": [],
+              "text": "A fierce original character design inspired by cyberpunk aesthetics. This digital artwork showcases a rogue operative with neon-lit cybernetic enhancements, embodying the rebellious spirit of a dystopian future."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "price": 89.99,
+      "currency": "USD",
+      "availability": "Available",
+      "heroImage": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-placeholder-4",
+          "_type": "reference"
+        }
+      },
+      "images": [
+        {
+          "_key": "img1",
+          "_type": "image",
+          "asset": {
+            "_ref": "image-placeholder-5",
+            "_type": "reference"
+          }
+        }
+      ],
+      "tags": ["cyberpunk", "character", "sci-fi", "digital"],
+      "featured": false,
+      "publishedAt": "2024-09-10T14:30:00Z",
+      "stripePaymentLink": "https://buy.stripe.com/test_sample_link_2"
+    },
+    {
+      "_id": "sample-oc-3",
+      "_type": "artwork",
+      "title": "Whimsical Forest Sprite",
+      "slug": {
+        "_type": "slug",
+        "current": "whimsical-forest-sprite"
+      },
+      "category": "OC",
+      "description": [
+        {
+          "_key": "block1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "child1",
+              "_type": "span",
+              "marks": [],
+              "text": "An adorable original character illustration of a playful forest sprite surrounded by glowing mushrooms and fireflies. This charming artwork brings a touch of magic and wonder to any space."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "price": 65.00,
+      "currency": "USD",
+      "availability": "SoldOut",
+      "heroImage": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-placeholder-6",
+          "_type": "reference"
+        }
+      },
+      "images": [],
+      "tags": ["cute", "fantasy", "nature", "sprite"],
+      "featured": true,
+      "publishedAt": "2024-09-05T09:15:00Z",
+      "stripePaymentLink": null
+    },
+    {
+      "_id": "sample-fanart-1",
+      "_type": "artwork",
+      "title": "The Witcher - Ciri's Destiny",
+      "slug": {
+        "_type": "slug",
+        "current": "witcher-ciri-destiny"
+      },
+      "category": "FanArt",
+      "description": [
+        {
+          "_key": "block1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "child1",
+              "_type": "span",
+              "marks": [],
+              "text": "A dramatic fan art piece featuring Ciri from The Witcher series at a pivotal moment in her journey. This artwork captures the intensity and emotion of her character arc with dynamic lighting and detailed armor design."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "price": 150.00,
+      "currency": "USD",
+      "availability": "Available",
+      "heroImage": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-placeholder-7",
+          "_type": "reference"
+        }
+      },
+      "images": [
+        {
+          "_key": "img1",
+          "_type": "image",
+          "asset": {
+            "_ref": "image-placeholder-8",
+            "_type": "reference"
+          }
+        },
+        {
+          "_key": "img2",
+          "_type": "image",
+          "asset": {
+            "_ref": "image-placeholder-9",
+            "_type": "reference"
+          }
+        }
+      ],
+      "tags": ["the-witcher", "ciri", "fanart", "gaming"],
+      "featured": true,
+      "publishedAt": "2024-09-20T16:45:00Z",
+      "stripePaymentLink": "https://buy.stripe.com/test_sample_link_3"
+    },
+    {
+      "_id": "sample-fanart-2",
+      "_type": "artwork",
+      "title": "Final Fantasy - Aerith's Grace",
+      "slug": {
+        "_type": "slug",
+        "current": "final-fantasy-aerith-grace"
+      },
+      "category": "FanArt",
+      "description": [
+        {
+          "_key": "block1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "child1",
+              "_type": "span",
+              "marks": [],
+              "text": "A serene and beautiful fan art tribute to Aerith from Final Fantasy VII. This piece focuses on her gentle nature and connection to the planet, featuring flowing fabrics and ethereal lighting effects."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "price": 110.00,
+      "currency": "USD",
+      "availability": "Available",
+      "heroImage": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-placeholder-10",
+          "_type": "reference"
+        }
+      },
+      "images": [
+        {
+          "_key": "img1",
+          "_type": "image",
+          "asset": {
+            "_ref": "image-placeholder-11",
+            "_type": "reference"
+          }
+        }
+      ],
+      "tags": ["final-fantasy", "aerith", "fanart", "jrpg"],
+      "featured": false,
+      "publishedAt": "2024-09-18T11:20:00Z",
+      "stripePaymentLink": "https://buy.stripe.com/test_sample_link_4"
+    },
+    {
+      "_id": "sample-fanart-3",
+      "_type": "artwork",
+      "title": "Studio Ghibli - Spirited Away",
+      "slug": {
+        "_type": "slug",
+        "current": "ghibli-spirited-away"
+      },
+      "category": "FanArt",
+      "description": [
+        {
+          "_key": "block1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "child1",
+              "_type": "span",
+              "marks": [],
+              "text": "An enchanting fan art inspired by Studio Ghibli's Spirited Away. This piece captures the magical atmosphere and intricate details that make Ghibli films so beloved, with rich colors and whimsical character design."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "price": 75.00,
+      "currency": "USD",
+      "availability": "Available",
+      "heroImage": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-placeholder-12",
+          "_type": "reference"
+        }
+      },
+      "images": [],
+      "tags": ["ghibli", "spirited-away", "fanart", "animation"],
+      "featured": false,
+      "publishedAt": "2024-09-12T13:10:00Z",
+      "stripePaymentLink": "https://buy.stripe.com/test_sample_link_5"
+    }
+  ],
+  "blogPosts": [
+    {
+      "_id": "sample-blog-1",
+      "_type": "blogPost",
+      "title": "My Journey into Digital Art",
+      "slug": {
+        "_type": "slug",
+        "current": "my-journey-into-digital-art"
+      },
+      "excerpt": "From traditional sketches to digital masterpieces - here's how I discovered my passion for creating art in the digital realm.",
+      "mainImage": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-placeholder-13",
+          "_type": "reference"
+        }
+      },
+      "body": [
+        {
+          "_key": "block1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "child1",
+              "_type": "span",
+              "marks": [],
+              "text": "I've always loved drawing, but it wasn't until I discovered digital art tools that my creativity really took off. The ability to experiment without fear of making mistakes changed everything for me."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "block2",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "child2",
+              "_type": "span",
+              "marks": [],
+              "text": "Digital art opened up a world of possibilities - from endless color palettes to the ability to easily revise and refine my work. In this post, I'll share my favorite tools and techniques that helped me make the transition."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "tags": ["digital-art", "tutorial", "personal"],
+      "publishedAt": "2024-09-20T08:00:00Z"
+    },
+    {
+      "_id": "sample-blog-2",
+      "_type": "blogPost",
+      "title": "Character Design Fundamentals",
+      "slug": {
+        "_type": "slug",
+        "current": "character-design-fundamentals"
+      },
+      "excerpt": "Learn the essential principles of creating compelling characters that tell stories through visual design.",
+      "mainImage": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-placeholder-14",
+          "_type": "reference"
+        }
+      },
+      "body": [
+        {
+          "_key": "block1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "child1",
+              "_type": "span",
+              "marks": [],
+              "text": "Character design is more than just making something look cool - it's about creating a visual representation that instantly communicates who your character is, what they do, and what makes them unique."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "block2",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "child2",
+              "_type": "span",
+              "marks": ["strong"],
+              "text": "Key elements to consider:"
+            }
+          ],
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "block3",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "child3",
+              "_type": "span",
+              "marks": [],
+              "text": "• Silhouette and shape language"
+            }
+          ],
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "block4",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "child4",
+              "_type": "span",
+              "marks": [],
+              "text": "• Color psychology and palette choices"
+            }
+          ],
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "block5",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "child5",
+              "_type": "span",
+              "marks": [],
+              "text": "• Costume and prop design"
+            }
+          ],
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "tags": ["character-design", "tutorial", "fundamentals"],
+      "publishedAt": "2024-09-15T10:30:00Z"
+    },
+    {
+      "_id": "sample-blog-3",
+      "_type": "blogPost",
+      "title": "The Art of Fan Art",
+      "slug": {
+        "_type": "slug",
+        "current": "the-art-of-fan-art"
+      },
+      "excerpt": "Exploring the creative process behind fan art and how it helps artists grow while paying homage to beloved characters.",
+      "mainImage": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-placeholder-15",
+          "_type": "reference"
+        }
+      },
+      "body": [
+        {
+          "_key": "block1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "child1",
+              "_type": "span",
+              "marks": [],
+              "text": "Fan art is a wonderful way to express admiration for the characters and stories that inspire us. It's also an excellent opportunity to practice new techniques and experiment with different styles."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "block2",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "child2",
+              "_type": "span",
+              "marks": [],
+              "text": "When creating fan art, I always focus on capturing the essence of the original character while adding my own artistic interpretation. This balance between homage and creativity is what makes fan art so rewarding."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "tags": ["fanart", "creativity", "inspiration"],
+      "publishedAt": "2024-09-10T14:15:00Z"
+    }
+  ],
+  "artistProfile": {
+    "_id": "sample-artist",
+    "_type": "artistProfile",
+    "name": "Alex Morgan",
+    "slug": {
+      "_type": "slug",
+      "current": "alex-morgan"
+    },
+    "bio": [
+      {
+        "_key": "block1",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "child1",
+            "_type": "span",
+            "marks": [],
+            "text": "I'm a digital artist passionate about creating immersive character designs and fantasy illustrations. With over 5 years of experience in digital art, I specialize in bringing original characters and beloved fan favorites to life through vibrant colors and intricate details."
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "block2",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "child2",
+            "_type": "span",
+            "marks": [],
+            "text": "My journey began with traditional sketching, but I quickly fell in love with the endless possibilities of digital tools. I believe art should evoke emotion and tell stories, whether it's through original character concepts or tributes to iconic characters from games, movies, and books."
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      }
+    ],
+    "profileImage": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-placeholder-16",
+        "_type": "reference"
+      }
+    },
+    "socialLinks": [
+      {
+        "_key": "social1",
+        "_type": "socialLink",
+        "platform": "instagram",
+        "url": "https://instagram.com/alexmorganart"
+      },
+      {
+        "_key": "social2",
+        "_type": "socialLink",
+        "platform": "twitter",
+        "url": "https://twitter.com/alexmorganart"
+      },
+      {
+        "_key": "social3",
+        "_type": "socialLink",
+        "platform": "deviantart",
+        "url": "https://deviantart.com/alexmorganart"
+      }
+    ],
+    "featured": true,
+    "skills": ["Character Design", "Digital Painting", "Fan Art", "Concept Art"],
+    "createdAt": "2024-09-01T00:00:00Z"
+  }
+}

@@ -1,0 +1,68 @@
+/* Metallic Background Effect from pink-metallic-background-template.md */
+body {
+  background:
+    url('../images/metal/55e2f5316c62543c26248cd9f52cc8b8cb24d3db4b6d3749374ad8c59f6a7afe.png') repeat-x,
+    url('../images/metal/79eef6bfc37e82169d2f4fa9ba3634121d65d2aa34536d22dead90178a7df76e.png') repeat-x,
+    url('../images/metal/8e31b1e60162077db8e6a8636a23127bac5786e50ade4f26e6ca3c2fbe515d67.gif') center/5px,
+    url('../images/metal/3448b8010dbb3c315ba742ec150ecd9541b93c4a234fa13e21299dc6d0af3fbb.png') center/contain,
+    var(--light-pink);
+  background-attachment: fixed;
+  background-blend-mode: normal;
+  min-height: 100vh;
+}
+
+/* Graceful fallback for when images don't load or prefers-reduced-data */
+@media (prefers-reduced-data: reduce) {
+  body {
+    background: var(--light-pink);
+    background-attachment: scroll;
+  }
+}
+
+/* Ensure readability with subtle overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Metallic effect for specific elements */
+.metallic-card {
+   background:
+     linear-gradient(135deg, rgba(253, 148, 189, 0.3), rgba(185, 94, 255, 0.3)),
+     url('../images/metal/deafc3503248c1bad2c6f4cdc67f6eaba7adbda65f745136f865fae901158fa8.png'),
+     var(--lighter-pink);
+   background-blend-mode: normal, luminosity, normal;
+   border: 3px solid var(--pink);
+   border-radius: var(--radius-lg);
+   padding: var(--space-xl);
+   box-shadow:
+     var(--shadow-lg),
+     inset 0 1px 0 rgba(255, 255, 255, 0.3),
+     0 0 20px rgba(253, 148, 189, 0.2);
+   position: relative;
+   overflow: hidden;
+}
+
+.metallic-card::before {
+   content: '';
+   position: absolute;
+   top: -50%;
+   left: -50%;
+   width: 200%;
+   height: 200%;
+   background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+   transform: rotate(45deg);
+   animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+   0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+   100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}

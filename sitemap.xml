@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://kojisartstudio.com/</loc>
+    <lastmod>2024-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://kojisartstudio.com/assets/images/og-image.jpg</image:loc>
+      <image:title>Koji's Art Studio - Digital Art Portfolio</image:title>
+      <image:caption>Homepage featuring Koji's latest digital art and character designs</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Gallery -->
+  <url>
+    <loc>https://kojisartstudio.com/gallery.html</loc>
+    <lastmod>2024-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://kojisartstudio.com/assets/images/gallery-og.jpg</image:loc>
+      <image:title>Art Gallery - Original Characters & Fan Art</image:title>
+      <image:caption>Complete gallery of digital artworks and character illustrations</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Blog -->
+  <url>
+    <loc>https://kojisartstudio.com/blog.html</loc>
+    <lastmod>2024-09-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://kojisartstudio.com/assets/images/blog-og.jpg</image:loc>
+      <image:title>Art Blog - Tutorials, Process & Inspiration</image:title>
+      <image:caption>Behind-the-scenes art tutorials and creative insights</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 404 Page -->
+  <url>
+    <loc>https://kojisartstudio.com/404.html</loc>
+    <lastmod>2024-09-24</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.1</priority>
+  </url>
+
+</urlset>

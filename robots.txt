@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://kojisartstudio.com/sitemap.xml
+
+# Crawl-delay (optional - be nice to servers)
+Crawl-delay: 1
+
+# Block access to assets that don't need indexing
+Disallow: /assets/js/
+Disallow: /assets/css/
+Disallow: /assets/images/metal/
+Disallow: *.css
+Disallow: *.js
+
+# Allow access to main pages
+Allow: /
+Allow: /index.html
+Allow: /gallery.html
+Allow: /blog.html
+Allow: /404.html

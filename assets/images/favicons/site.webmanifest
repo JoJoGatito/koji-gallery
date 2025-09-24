@@ -1,0 +1,17 @@
+{
+  "name": "Koji's Art Studio",
+  "short_name": "Koji Art",
+  "description": "Digital art portfolio featuring original characters and fan art by Koji",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF3F4",
+  "theme_color": "#FD94BD",
+  "icons": [
+    {
+      "src": "assets/images/favicons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

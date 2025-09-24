@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | Koji's Art Studio</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Oops! The page you're looking for doesn't exist. Return to Koji's Art Studio homepage to explore digital art, original characters, and fan art.">
+    <meta name="keywords" content="404, page not found, error, art studio">
+    <meta name="author" content="Koji">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="https://kojisartstudio.com/404.html">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="404 - Page Not Found | Koji's Art Studio">
+    <meta property="og:description" content="Oops! The page you're looking for doesn't exist. Return to Koji's Art Studio homepage to explore digital art, original characters, and fan art.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kojisartstudio.com/404.html">
+    <meta property="og:image" content="https://kojisartstudio.com/assets/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Koji's Art Studio">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="404 - Page Not Found | Koji's Art Studio">
+    <meta name="twitter:description" content="Oops! The page you're looking for doesn't exist. Return to Koji's Art Studio homepage to explore digital art, original characters, and fan art.">
+    <meta name="twitter:image" content="https://kojisartstudio.com/assets/images/og-image.jpg">
+
+    <!-- Additional SEO -->
+    <meta name="theme-color" content="#ff6b9d">
+    <meta name="msapplication-TileColor" content="#ff6b9d">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/background.css">
+    <link rel="stylesheet" href="assets/css/corkboard.css">
+    
+    <style>
+        .error-page {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: var(--space-2xl) 0;
+        }
+        
+        .error-content {
+            max-width: 600px;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-lg);
+            border: 2px solid var(--pink);
+        }
+        
+        .error-code {
+            font-family: var(--font-mono);
+            font-size: clamp(4rem, 8vw, 6rem);
+            color: var(--pink);
+            text-shadow: 3px 3px 0 var(--light-pink);
+            margin: 0;
+            line-height: 1;
+        }
+        
+        .error-title {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-2xl);
+            color: var(--black);
+            margin: var(--space-md) 0 var(--space-lg) 0;
+        }
+        
+        .error-message {
+            font-size: var(--font-size-lg);
+            color: var(--gray);
+            margin-bottom: var(--space-xl);
+            line-height: 1.6;
+        }
+        
+        .error-actions {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .btn-home {
+            background: var(--pink);
+            color: var(--white);
+            border: 2px solid var(--purple);
+            border-radius: var(--radius-md);
+            padding: var(--space-md) var(--space-lg);
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .btn-home:hover {
+            background: var(--purple);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-gallery {
+            background: var(--purple);
+            color: var(--white);
+            border: 2px solid var(--dark);
+            border-radius: var(--radius-md);
+            padding: var(--space-md) var(--space-lg);
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .btn-gallery:hover {
+            background: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .error-help {
+            font-size: var(--font-size-sm);
+            color: var(--gray);
+            margin-top: var(--space-lg);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--light-pink);
+        }
+        
+        .error-help a {
+            color: var(--purple);
+            text-decoration: none;
+        }
+        
+        .error-help a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .error-content {
+                padding: var(--space-xl) var(--space-lg);
+                margin: 0 var(--space-md);
+            }
+            
+            .error-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-home,
+            .btn-gallery {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Links for Accessibility --><!-- Header -->
+    <header class="site-header">
+        <div class="header-container">
+            <div class="logo">
+                <h1>Koji's Art Studio</h1>
+            </div>
+            
+            <nav class="main-nav" id="navigation">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="cart-button" aria-label="Shopping cart">
+                    <span class="cart-icon">🛒</span>
+                    <span class="cart-counter">0</span>
+                </button>
+                <button class="hamburger-menu" aria-label="Toggle navigation">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+        <ul class="mobile-nav-list">
+            <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+            <li><a href="gallery.html" class="mobile-nav-link">Gallery</a></li>
+            <li><a href="blog.html" class="mobile-nav-link">Blog</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <section class="error-page">
+            <div class="container">
+                <div class="error-content">
+                    <h1 class="error-code">404</h1>
+                    <h2 class="error-title">Oops! Page Not Found</h2>
+                    <p class="error-message">
+                        It looks like you've wandered into uncharted territory. The page you're looking for doesn't exist or has been moved to a different location.
+                    </p>
+                    
+                    <div class="error-actions">
+                        <a href="index.html" class="btn-home">
+                            🏠 Go Home
+                        </a>
+                        <a href="gallery.html" class="btn-gallery">
+                            🎨 View Gallery
+                        </a>
+                    </div>
+                    
+                    <div class="error-help">
+                        <p>Looking for something specific? Try:</p>
+                        <ul style="text-align: left; margin: var(--space-sm) 0;">
+                            <li><a href="gallery.html">Browse the art gallery</a></li>
+                            <li><a href="blog.html">Read the latest blog posts</a></li>
+                            <li><a href="index.html">Return to the homepage</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Connect With Me</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+                        <a href="#" class="social-link" aria-label="Instagram">📷</a>
+                        <a href="#" class="social-link" aria-label="DeviantArt">🎨</a>
+                        <a href="#" class="social-link" aria-label="Discord">💬</a>
+                        <a href="#" class="social-link" aria-label="Email">✉️</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Stay updated with my latest art and blog posts!</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Koji's Art Studio. Made with 💖 and lots of coffee.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/cart.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

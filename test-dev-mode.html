@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Mode Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; color: #155724; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; color: #0c5460; }
+        .test-results { margin-top: 10px; }
+        .sample-data { max-height: 300px; overflow-y: auto; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <h1>Development Mode Test</h1>
+
+    <div class="test-section info">
+        <h2>Test Instructions</h2>
+        <p>This page tests the development mode functionality. The development mode should automatically activate because:</p>
+        <ul>
+            <li>The Sanity project ID is still set to 'your-project-id' (placeholder)</li>
+            <li>Sample data is imported from sampleData.json</li>
+        </ul>
+        <p>Open browser developer tools (F12) and check the console for development mode messages.</p>
+    </div>
+
+    <div class="test-section" id="test-results">
+        <h2>Test Results</h2>
+        <div class="test-results">
+            <p id="status">Testing...</p>
+            <button onclick="runTests()">Run Tests</button>
+        </div>
+    </div>
+
+    <div class="test-section" id="sample-data-preview">
+        <h2>Sample Data Preview</h2>
+        <div class="sample-data" id="data-preview">Loading sample data...</div>
+    </div>
+
+    <!-- Import the updated sanityClient.js -->
+    <script type="module">
+        import { SanityClient } from './assets/js/sanityClient.js';
+
+        const sanityClient = new SanityClient();
+
+        // Make it available globally for testing
+        window.sanityClient = sanityClient;
+        window.sampleData = (await import('./assets/js/sampleData.json', { assert: { type: 'json' } })).default;
+
+        console.log('🎨 Sanity Client loaded');
+        console.log('Development mode enabled:', sanityClient.developmentMode);
+
+        // Display sample data preview
+        document.getElementById('data-preview').innerHTML = `
+            <p><strong>Artworks:</strong> ${window.sampleData.artworks.length} items</p>
+            <p><strong>Blog Posts:</strong> ${window.sampleData.blogPosts.length} items</p>
+            <p><strong>Artist Profile:</strong> ${window.sampleData.artistProfile ? 'Available' : 'Not available'}</p>
+        `;
+
+        // Test functions
+        async function runTests() {
+            const resultsDiv = document.getElementById('test-results');
+            resultsDiv.className = 'test-section';
+
+            let results = '<h3>Test Results:</h3>';
+
+            try {
+                // Test 1: Get home page data
+                results += '<h4>Test 1: Home Page Data</h4>';
+                const homeData = await sanityClient.getHomePageData();
+                if (homeData && homeData.ocArtworks && homeData.fanArtworks) {
+                    results += `<p class="success">✅ SUCCESS: Found ${homeData.ocArtworks.length} OC artworks and ${homeData.fanArtworks.length} Fan Art pieces</p>`;
+                } else {
+                    results += '<p class="error">❌ FAILED: Home page data not loaded properly</p>';
+                }
+
+                // Test 2: Get gallery data
+                results += '<h4>Test 2: Gallery Data</h4>';
+                const galleryData = await sanityClient.getGalleryData();
+                if (galleryData && Array.isArray(galleryData) && galleryData.length > 0) {
+                    results += `<p class="success">✅ SUCCESS: Found ${galleryData.length} artworks in gallery</p>`;
+                } else {
+                    results += '<p class="error">❌ FAILED: Gallery data not loaded properly</p>';
+                }
+
+                // Test 3: Get blog posts
+                results += '<h4>Test 3: Blog Posts</h4>';
+                const blogData = await sanityClient.getAllBlogPosts();
+                if (blogData && Array.isArray(blogData) && blogData.length > 0) {
+                    results += `<p class="success">✅ SUCCESS: Found ${blogData.length} blog posts</p>`;
+                } else {
+                    results += '<p class="error">❌ FAILED: Blog posts not loaded properly</p>';
+                }
+
+                // Test 4: Get blog post by slug
+                results += '<h4>Test 4: Blog Post by Slug</h4>';
+                const blogPost = await sanityClient.getBlogPostBySlug('my-journey-into-digital-art');
+                if (blogPost && blogPost.title) {
+                    results += `<p class="success">✅ SUCCESS: Found blog post "${blogPost.title}"</p>`;
+                } else {
+                    results += '<p class="error">❌ FAILED: Blog post by slug not loaded properly</p>';
+                }
+
+                // Test 5: Get featured artworks
+                results += '<h4>Test 5: Featured Artworks</h4>';
+                const featured = await sanityClient.getFeaturedArtworks();
+                if (featured && Array.isArray(featured) && featured.length > 0) {
+                    results += `<p class="success">✅ SUCCESS: Found ${featured.length} featured artworks</p>`;
+                } else {
+                    results += '<p class="error">❌ FAILED: Featured artworks not loaded properly</p>';
+                }
+
+                resultsDiv.innerHTML = results;
+
+            } catch (error) {
+                results += `<p class="error">❌ ERROR: ${error.message}</p>`;
+                resultsDiv.innerHTML = results;
+                console.error('Test error:', error);
+            }
+        }
+
+        // Make test function available globally
+        window.runTests = runTests;
+
+        document.getElementById('status').textContent = `Development mode: ${sanityClient.developmentMode ? 'ENABLED ✅' : 'DISABLED ❌'}`;
+
+    </script>
+</body>
+</html>

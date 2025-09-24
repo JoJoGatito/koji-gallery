@@ -1,0 +1,173 @@
+/* Corkboard aesthetic for pinned notes */
+.corkboard {
+  --cork-border: clamp(1px, 3vw, 35px);
+  background-image: url('../images/cork/bordertop.webp'), url('../images/cork/borderbottom.webp'), url('../images/cork/borderleft.webp'), url('../images/cork/borderright.webp'), url('../images/cork/cork-texture.webp');
+  background-position: top, bottom, left, right, center;
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y, no-repeat;
+  background-size: auto var(--cork-border), auto var(--cork-border), var(--cork-border), var(--cork-border), cover;
+  background-color: #c79b5a;
+  padding: calc(var(--space-xl) + var(--cork-border));
+  margin: var(--space-xl) 30px;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  min-height: 400px;
+}
+
+.corkboard-border {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Use layered backgrounds on .corkboard; hide DOM border elements */
+.corkboard .corkboard-border {
+  display: none;
+}
+
+/* Top border */
+.corkboard-border-top {
+  top: -30px;
+  left: -30px;
+  right: -30px;
+  height: 30px;
+  background: url('../images/cork/bordertop.webp') repeat-x;
+}
+
+/* Bottom border */
+.corkboard-border-bottom {
+  bottom: -30px;
+  left: -30px;
+  right: -30px;
+  height: 30px;
+  background: url('../images/cork/borderbottom.webp') repeat-x;
+}
+
+/* Left border */
+.corkboard-border-left {
+  top: -30px;
+  left: -30px;
+  bottom: -30px;
+  width: 30px;
+  background: url('../images/cork/borderleft.webp') repeat-y;
+}
+
+/* Right border */
+.corkboard-border-right {
+  top: -30px;
+  right: -30px;
+  bottom: -30px;
+  width: 30px;
+  background: url('../images/cork/borderright.webp') repeat-y;
+}
+
+.corkboard::before {
+  content: '';
+  position: absolute;
+  top: var(--cork-border);
+  left: var(--cork-border);
+  right: var(--cork-border);
+  bottom: var(--cork-border);
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-lg);
+  pointer-events: none;
+}
+
+.pinned-note {
+   background: linear-gradient(135deg, #f5deb3, #fff8dc);
+    border: 2px solid var(--pink);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    margin: var(--space-md);
+    box-shadow:
+      var(--shadow-md),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    position: relative;
+    display: inline-block;
+    min-width: 200px;
+    max-width: 280px;
+    transform: rotate(calc(var(--rotation, 0) * 1deg));
+    transition: all 0.3s ease;
+    overflow: hidden;
+ }
+
+.pinned-note::after {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   height: 3px;
+   background: linear-gradient(90deg, var(--pink), var(--purple), var(--pink));
+   opacity: 0;
+   transition: opacity 0.3s ease;
+}
+
+.pinned-note:hover {
+   transform: rotate(calc(var(--rotation, 0) * 1deg)) scale(1.05);
+   box-shadow:
+     var(--shadow-lg),
+     inset 0 1px 0 rgba(255, 255, 255, 0.9),
+     0 0 15px rgba(253, 148, 189, 0.3);
+   border-color: var(--purple);
+}
+
+.pinned-note:hover::after {
+   opacity: 1;
+}
+
+.pinned-note::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background: url('../images/thumbtack.svg') center/contain no-repeat;
+  z-index: 10;
+}
+
+.corkboard-section {
+  margin-bottom: var(--space-xl);
+}
+
+.corkboard-section h3 {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xl);
+  color: var(--white);
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+.corkboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-md);
+  justify-items: center;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+   .corkboard {
+     padding: var(--space-lg);
+     margin: var(--space-md) 0;
+   }
+
+   .pinned-note {
+     min-width: 150px;
+     max-width: 200px;
+     transform: rotate(calc(var(--rotation, 0) * 0.5deg));
+     padding: var(--space-md);
+     margin: var(--space-sm);
+   }
+
+   .corkboard-grid {
+     grid-template-columns: 1fr;
+     gap: var(--space-sm);
+   }
+
+   .metallic-card {
+     padding: var(--space-lg);
+     margin: var(--space-md);
+   }
+}
