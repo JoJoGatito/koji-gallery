@@ -142,7 +142,7 @@ If you have a custom domain:
    - Opens at `http://localhost:3333`
 
 2. **Production Studio**:
-   - Visit `https://your-project-id.sanity.studio`
+- Visit `https://emdgbbhp.sanity.studio`
 
 #### Adding New Artwork
 
@@ -208,6 +208,16 @@ If you have a custom domain:
 - **Consistency**: Maintain consistent formatting and style
 - **Accessibility**: Add alt text to all images
 - **Performance**: Keep images under 2MB
+
+### Sanity Configuration
+
+- **Project ID**: `emdgbbhp`
+- **Dataset**: `production`
+- **CORS Origins**:
+  - `https://jojogatito.github.io`
+  - `http://localhost:5500`
+  - `http://127.0.0.1:5500`
+- **Notes**: This configuration ensures that the frontend can securely access the Sanity API. Future maintenance should involve updating the CORS origins if the deployment domain changes.
 
 ## 🎨 Asset Maintenance
 

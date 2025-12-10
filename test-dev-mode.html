@@ -3,129 +3,431 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Development Mode Test</title>
+    <title>Sanity Configuration Test Harness</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
-        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
-        .success { background-color: #d4edda; border-color: #c3e6cb; color: #155724; }
-        .info { background-color: #d1ecf1; border-color: #bee5eb; color: #0c5460; }
-        .test-results { margin-top: 10px; }
-        .sample-data { max-height: 300px; overflow-y: auto; font-size: 12px; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-header {
+            background: #007acc;
+            color: white;
+            padding: 15px 20px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .test-content {
+            padding: 20px;
+        }
+        .test-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .test-button:hover {
+            background: #218838;
+        }
+        .test-button:active {
+            background: #1e7e34;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .status.loading {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .test-results {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #007acc;
+        }
+        .data-preview {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 10px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .meta-info {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .troubleshooting {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .url-info {
+            font-family: monospace;
+            background: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 3px;
+            display: inline-block;
+            margin: 5px 0;
+        }
+        .toggle-dev-mode {
+            background: #ffc107;
+            color: #212529;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        .toggle-dev-mode:hover {
+            background: #e0a800;
+        }
     </style>
 </head>
 <body>
-    <h1>Development Mode Test</h1>
-
-    <div class="test-section info">
-        <h2>Test Instructions</h2>
-        <p>This page tests the development mode functionality. The development mode should automatically activate because:</p>
-        <ul>
-            <li>The Sanity project ID is still set to 'your-project-id' (placeholder)</li>
-            <li>Sample data is imported from sampleData.json</li>
-        </ul>
-        <p>Open browser developer tools (F12) and check the console for development mode messages.</p>
+    <div class="header">
+        <h1>🔧 Sanity Configuration Test Harness</h1>
+        <p>This tool tests your Sanity CMS configuration by fetching data from all required endpoints.</p>
+        <div class="url-info">
+            Current URL: <span id="current-url"></span>
+        </div>
+        <button class="toggle-dev-mode" onclick="toggleDevMode()">Toggle Dev Mode</button>
     </div>
 
-    <div class="test-section" id="test-results">
-        <h2>Test Results</h2>
-        <div class="test-results">
-            <p id="status">Testing...</p>
-            <button onclick="runTests()">Run Tests</button>
+    <div class="meta-info">
+        <h3>ℹ️ Configuration Info</h3>
+        <p><strong>Project ID:</strong> <span id="project-id">Loading...</span></p>
+        <p><strong>Dataset:</strong> <span id="dataset">Loading...</span></p>
+        <p><strong>API Version:</strong> <span id="api-version">Loading...</span></p>
+        <p><strong>CDN Status:</strong> <span id="cdn-status">Loading...</span></p>
+    </div>
+
+    <!-- Home Data Test -->
+    <div class="test-section">
+        <div class="test-header">
+            <span>🏠 Home Data Test</span>
+            <button class="test-button" onclick="testHomeData()">Test Home Data</button>
+        </div>
+        <div class="test-content">
+            <p>Tests fetching: Latest 3 OC artworks, latest 3 Fan Art artworks, and latest blog post</p>
+            <div id="home-status" class="status" style="display: none;"></div>
+            <div id="home-results" class="test-results" style="display: none;">
+                <div id="home-data-preview" class="data-preview"></div>
+            </div>
         </div>
     </div>
 
-    <div class="test-section" id="sample-data-preview">
-        <h2>Sample Data Preview</h2>
-        <div class="sample-data" id="data-preview">Loading sample data...</div>
+    <!-- Gallery Data Test -->
+    <div class="test-section">
+        <div class="test-header">
+            <span>🖼️ Gallery Data Test</span>
+            <button class="test-button" onclick="testGalleryData()">Test Gallery Data</button>
+        </div>
+        <div class="test-content">
+            <p>Tests fetching all artworks from the gallery</p>
+            <div id="gallery-status" class="status" style="display: none;"></div>
+            <div id="gallery-results" class="test-results" style="display: none;">
+                <div id="gallery-data-preview" class="data-preview"></div>
+            </div>
+        </div>
     </div>
 
-    <!-- Import the updated sanityClient.js -->
+    <!-- Blog Posts Test -->
+    <div class="test-section">
+        <div class="test-header">
+            <span>📝 Blog Posts Test</span>
+            <button class="test-button" onclick="testBlogPosts()">Test Blog Posts</button>
+        </div>
+        <div class="test-content">
+            <p>Tests fetching all blog posts</p>
+            <div id="blog-status" class="status" style="display: none;"></div>
+            <div id="blog-results" class="test-results" style="display: none;">
+                <div id="blog-data-preview" class="data-preview"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Artworks Test -->
+    <div class="test-section">
+        <div class="test-header">
+            <span>⭐ Featured Artworks Test</span>
+            <button class="test-button" onclick="testFeaturedArtworks()">Test Featured Artworks</button>
+        </div>
+        <div class="test-content">
+            <p>Tests fetching all featured artworks</p>
+            <div id="featured-status" class="status" style="display: none;"></div>
+            <div id="featured-results" class="test-results" style="display: none;">
+                <div id="featured-data-preview" class="data-preview"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Run All Tests -->
+    <div class="test-section">
+        <div class="test-header">
+            <span>🚀 Run All Tests</span>
+            <button class="test-button" onclick="runAllTests()">Run All Tests</button>
+        </div>
+        <div class="test-content">
+            <p>Execute all tests in sequence to validate your Sanity configuration</p>
+        </div>
+    </div>
+
+    <div class="troubleshooting">
+        <h3>🔍 Troubleshooting</h3>
+        <p><strong>If tests fail:</strong></p>
+        <ol>
+            <li><strong>Check CORS settings</strong> - Ensure your Sanity project allows requests from this domain</li>
+            <li><strong>Verify dataset</strong> - Confirm you're using the correct dataset (usually 'production')</li>
+            <li><strong>Check API token</strong> - If using private datasets, ensure proper authentication</li>
+            <li><strong>Cache issues</strong> - If you suspect caching problems, temporarily set <code>useCdn: false</code> in <code>assets/js/sanityClient.js</code> and hard refresh</li>
+        </ol>
+        <p><strong>Development Mode:</strong> Add <code>?dev=true</code> to the URL to use sample data instead of live Sanity data for testing</p>
+    </div>
+
     <script type="module">
+        // Import the Sanity client
         import { SanityClient } from './assets/js/sanityClient.js';
 
-        const sanityClient = new SanityClient();
+        let sanityClient;
+        let isDevMode = false;
 
-        // Make it available globally for testing
-        window.sanityClient = sanityClient;
-        window.sampleData = (await import('./assets/js/sampleData.json', { assert: { type: 'json' } })).default;
-
-        console.log('🎨 Sanity Client loaded');
-        console.log('Development mode enabled:', sanityClient.developmentMode);
-
-        // Display sample data preview
-        document.getElementById('data-preview').innerHTML = `
-            <p><strong>Artworks:</strong> ${window.sampleData.artworks.length} items</p>
-            <p><strong>Blog Posts:</strong> ${window.sampleData.blogPosts.length} items</p>
-            <p><strong>Artist Profile:</strong> ${window.sampleData.artistProfile ? 'Available' : 'Not available'}</p>
-        `;
-
-        // Test functions
-        async function runTests() {
-            const resultsDiv = document.getElementById('test-results');
-            resultsDiv.className = 'test-section';
-
-            let results = '<h3>Test Results:</h3>';
+        // Initialize the test harness
+        async function initialize() {
+            document.getElementById('current-url').textContent = window.location.href;
 
             try {
-                // Test 1: Get home page data
-                results += '<h4>Test 1: Home Page Data</h4>';
-                const homeData = await sanityClient.getHomePageData();
-                if (homeData && homeData.ocArtworks && homeData.fanArtworks) {
-                    results += `<p class="success">✅ SUCCESS: Found ${homeData.ocArtworks.length} OC artworks and ${homeData.fanArtworks.length} Fan Art pieces</p>`;
-                } else {
-                    results += '<p class="error">❌ FAILED: Home page data not loaded properly</p>';
-                }
+                // Initialize Sanity client to get config info
+                sanityClient = new SanityClient();
 
-                // Test 2: Get gallery data
-                results += '<h4>Test 2: Gallery Data</h4>';
-                const galleryData = await sanityClient.getGalleryData();
-                if (galleryData && Array.isArray(galleryData) && galleryData.length > 0) {
-                    results += `<p class="success">✅ SUCCESS: Found ${galleryData.length} artworks in gallery</p>`;
-                } else {
-                    results += '<p class="error">❌ FAILED: Gallery data not loaded properly</p>';
-                }
+                // Update config display
+                document.getElementById('project-id').textContent = sanityClient.client.config().projectId || 'Not configured';
+                document.getElementById('dataset').textContent = sanityClient.client.config().dataset || 'Not configured';
+                document.getElementById('api-version').textContent = sanityClient.client.config().apiVersion || 'Not configured';
+                document.getElementById('cdn-status').textContent = sanityClient.client.config().useCdn ? 'Enabled' : 'Disabled';
 
-                // Test 3: Get blog posts
-                results += '<h4>Test 3: Blog Posts</h4>';
-                const blogData = await sanityClient.getAllBlogPosts();
-                if (blogData && Array.isArray(blogData) && blogData.length > 0) {
-                    results += `<p class="success">✅ SUCCESS: Found ${blogData.length} blog posts</p>`;
-                } else {
-                    results += '<p class="error">❌ FAILED: Blog posts not loaded properly</p>';
-                }
-
-                // Test 4: Get blog post by slug
-                results += '<h4>Test 4: Blog Post by Slug</h4>';
-                const blogPost = await sanityClient.getBlogPostBySlug('my-journey-into-digital-art');
-                if (blogPost && blogPost.title) {
-                    results += `<p class="success">✅ SUCCESS: Found blog post "${blogPost.title}"</p>`;
-                } else {
-                    results += '<p class="error">❌ FAILED: Blog post by slug not loaded properly</p>';
-                }
-
-                // Test 5: Get featured artworks
-                results += '<h4>Test 5: Featured Artworks</h4>';
-                const featured = await sanityClient.getFeaturedArtworks();
-                if (featured && Array.isArray(featured) && featured.length > 0) {
-                    results += `<p class="success">✅ SUCCESS: Found ${featured.length} featured artworks</p>`;
-                } else {
-                    results += '<p class="error">❌ FAILED: Featured artworks not loaded properly</p>';
-                }
-
-                resultsDiv.innerHTML = results;
+                isDevMode = sanityClient.developmentMode;
+                updateDevModeIndicator();
 
             } catch (error) {
-                results += `<p class="error">❌ ERROR: ${error.message}</p>`;
-                resultsDiv.innerHTML = results;
-                console.error('Test error:', error);
+                console.error('Failed to initialize Sanity client:', error);
+                document.getElementById('project-id').textContent = 'Error loading config';
             }
         }
 
-        // Make test function available globally
-        window.runTests = runTests;
+        function updateDevModeIndicator() {
+            const devModeButton = document.querySelector('.toggle-dev-mode');
+            if (isDevMode) {
+                devModeButton.textContent = 'Disable Dev Mode';
+                devModeButton.style.background = '#dc3545';
+                devModeButton.style.color = 'white';
+            } else {
+                devModeButton.textContent = 'Enable Dev Mode';
+                devModeButton.style.background = '#ffc107';
+                devModeButton.style.color = '#212529';
+            }
+        }
 
-        document.getElementById('status').textContent = `Development mode: ${sanityClient.developmentMode ? 'ENABLED ✅' : 'DISABLED ❌'}`;
+        function toggleDevMode() {
+            if (isDevMode) {
+                // Remove dev parameter
+                const url = new URL(window.location);
+                url.searchParams.delete('dev');
+                window.location.href = url.toString();
+            } else {
+                // Add dev parameter
+                const url = new URL(window.location);
+                url.searchParams.set('dev', 'true');
+                window.location.href = url.toString();
+            }
+        }
 
+        function showStatus(elementId, type, message) {
+            const statusEl = document.getElementById(elementId);
+            statusEl.className = `status ${type}`;
+            statusEl.textContent = message;
+            statusEl.style.display = 'block';
+        }
+
+        function showResults(resultsId, data) {
+            const resultsEl = document.getElementById(resultsId);
+            const previewEl = document.getElementById(resultsId.replace('-results', '-data-preview'));
+
+            resultsEl.style.display = 'block';
+            previewEl.textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function testHomeData() {
+            showStatus('home-status', 'loading', '🔄 Fetching home data...');
+
+            try {
+                const data = await sanityClient.getHomePageData();
+
+                if (data && (data.ocArtworks || data.fanArtworks || data.latestBlogPost)) {
+                    showStatus('home-status', 'success', '✅ Home data fetched successfully');
+
+                    // Show summary
+                    let summary = '';
+                    if (data.ocArtworks) summary += `OC Artworks: ${data.ocArtworks.length} | `;
+                    if (data.fanArtworks) summary += `Fan Artworks: ${data.fanArtworks.length} | `;
+                    if (data.latestBlogPost) summary += `Latest Blog Post: ${data.latestBlogPost.title}`;
+
+                    showResults('home-results', { summary, data });
+                } else {
+                    showStatus('home-status', 'error', '❌ No home data received');
+                }
+            } catch (error) {
+                console.error('Home data test failed:', error);
+                showStatus('home-status', 'error', `❌ Home data test failed: ${error.message}`);
+            }
+        }
+
+        async function testGalleryData() {
+            showStatus('gallery-status', 'loading', '🔄 Fetching gallery data...');
+
+            try {
+                const data = await sanityClient.getGalleryData();
+
+                if (data && Array.isArray(data) && data.length > 0) {
+                    showStatus('gallery-status', 'success', `✅ Gallery data fetched successfully (${data.length} artworks)`);
+                    showResults('gallery-results', {
+                        count: data.length,
+                        categories: [...new Set(data.map(art => art.category))],
+                        data: data.slice(0, 3) // Show first 3 for preview
+                    });
+                } else {
+                    showStatus('gallery-status', 'error', '❌ No gallery data received or empty array');
+                }
+            } catch (error) {
+                console.error('Gallery data test failed:', error);
+                showStatus('gallery-status', 'error', `❌ Gallery data test failed: ${error.message}`);
+            }
+        }
+
+        async function testBlogPosts() {
+            showStatus('blog-status', 'loading', '🔄 Fetching blog posts...');
+
+            try {
+                const data = await sanityClient.getAllBlogPosts();
+
+                if (data && Array.isArray(data) && data.length > 0) {
+                    showStatus('blog-status', 'success', `✅ Blog posts fetched successfully (${data.length} posts)`);
+                    showResults('blog-results', {
+                        count: data.length,
+                        data: data.slice(0, 3) // Show first 3 for preview
+                    });
+                } else {
+                    showStatus('blog-status', 'error', '❌ No blog posts received or empty array');
+                }
+            } catch (error) {
+                console.error('Blog posts test failed:', error);
+                showStatus('blog-status', 'error', `❌ Blog posts test failed: ${error.message}`);
+            }
+        }
+
+        async function testFeaturedArtworks() {
+            showStatus('featured-status', 'loading', '🔄 Fetching featured artworks...');
+
+            try {
+                const data = await sanityClient.getFeaturedArtworks();
+
+                if (data && Array.isArray(data) && data.length > 0) {
+                    showStatus('featured-status', 'success', `✅ Featured artworks fetched successfully (${data.length} artworks)`);
+                    showResults('featured-results', {
+                        count: data.length,
+                        data: data.slice(0, 3) // Show first 3 for preview
+                    });
+                } else {
+                    showStatus('featured-status', 'error', '❌ No featured artworks received or empty array');
+                }
+            } catch (error) {
+                console.error('Featured artworks test failed:', error);
+                showStatus('featured-status', 'error', `❌ Featured artworks test failed: ${error.message}`);
+            }
+        }
+
+        async function runAllTests() {
+            // Disable all buttons temporarily
+            document.querySelectorAll('.test-button').forEach(btn => {
+                btn.disabled = true;
+                btn.textContent = 'Running...';
+            });
+
+            try {
+                await testHomeData();
+                await new Promise(resolve => setTimeout(resolve, 500)); // Small delay between tests
+                await testGalleryData();
+                await new Promise(resolve => setTimeout(resolve, 500));
+                await testBlogPosts();
+                await new Promise(resolve => setTimeout(resolve, 500));
+                await testFeaturedArtworks();
+
+                // Show summary
+                const successCount = document.querySelectorAll('.status.success').length;
+                const totalCount = document.querySelectorAll('.status').length;
+
+                alert(`Tests completed! ${successCount}/${totalCount} tests passed.`);
+            } catch (error) {
+                console.error('Error running all tests:', error);
+                alert('Error running tests. Check console for details.');
+            } finally {
+                // Re-enable all buttons
+                document.querySelectorAll('.test-button').forEach(btn => {
+                    btn.disabled = false;
+                    if (btn.onclick.toString().includes('testHomeData')) btn.textContent = 'Test Home Data';
+                    else if (btn.onclick.toString().includes('testGalleryData')) btn.textContent = 'Test Gallery Data';
+                    else if (btn.onclick.toString().includes('testBlogPosts')) btn.textContent = 'Test Blog Posts';
+                    else if (btn.onclick.toString().includes('testFeaturedArtworks')) btn.textContent = 'Test Featured Artworks';
+                    else if (btn.onclick.toString().includes('runAllTests')) btn.textContent = 'Run All Tests';
+                });
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initialize);
     </script>
 </body>
 </html>

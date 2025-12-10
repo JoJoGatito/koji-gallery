@@ -1,22 +1,21 @@
 // Sanity Client Configuration and Utilities
-// Project ID: your-project-id (placeholder)
+// Project ID: emdgbbhp
 // Dataset: production
 // API Version: 2023-05-03
 // Using CDN: true
 
-import { createClient } from 'https://cdn.skypack.dev/@sanity/client@6.7.0';
-import imageUrlBuilder from 'https://cdn.skypack.dev/@sanity/image-url@1.0.2';
-import { PortableText } from 'https://cdn.skypack.dev/@portabletext/javascript@2.0.1';
+import { createClient } from 'https://esm.sh/@sanity/client@7';
+import imageUrlBuilder from 'https://esm.sh/@sanity/image-url@1';
 
 // Import sample data for development mode
-import sampleData from './sampleData.json' with { type: 'json' };
+import sampleData from './sampleData.json' assert { type: 'json' };
 
 // Sanity client configuration
 const client = createClient({
-  projectId: 'your-project-id', // Replace with your actual project ID
+  projectId: 'emdgbbhp',
   dataset: 'production',
   useCdn: true,
-  apiVersion: '2023-05-03'
+  apiVersion: '2024-10-01'
 });
 
 // Image URL builder
@@ -90,8 +89,8 @@ const GROQ_QUERIES = {
     }
   `,
 
-  GALLERY_BY_CATEGORY: (category) => `
-    *[_type == "artwork" && category == "${category}"] | order(publishedAt desc) {
+  GALLERY_BY_CATEGORY: `
+    *[_type == "artwork" && category == $category] | order(publishedAt desc) {
       _id,
       title,
       slug,
@@ -124,8 +123,8 @@ const GROQ_QUERIES = {
   `,
 
   // Individual blog post by slug
-  BLOG_POST_BY_SLUG: (slug) => `
-    *[_type == "blogPost" && slug.current == "${slug}"][0] {
+  BLOG_POST_BY_SLUG: `
+    *[_type == "blogPost" && slug.current == $slug][0] {
       _id,
       title,
       slug,
@@ -149,15 +148,11 @@ class SanityClient {
 
   // Check if development mode should be enabled
   checkDevelopmentMode() {
-    // Enable dev mode if:
-    // 1. No projectId is configured (still using placeholder)
-    // 2. URL contains ?dev=true parameter
-    // 3. Sanity API returns an error
+    // Enable dev mode if URL contains ?dev=true parameter
     const urlParams = new URLSearchParams(window.location.search);
     const isDevParam = urlParams.get('dev') === 'true';
-    const isPlaceholderProject = client.config().projectId === 'your-project-id';
 
-    return isDevParam || isPlaceholderProject;
+    return isDevParam;
   }
 
   // Fetch data using GROQ queries
@@ -288,33 +283,38 @@ class SanityClient {
 
   // Render marks (bold, italic, links, etc.)
   renderMarks(block) {
-    if (!block.marks || block.marks.length === 0) {
-      return block.children.map(child => child.text).join('');
+    if (!block || !Array.isArray(block.children)) {
+      return '';
     }
 
-    let text = block.children.map(child => {
-      let processedText = child.text;
+    return block.children.map(child => {
+      let processedText = child.text || '';
 
-      if (child.marks) {
+      if (child.marks && child.marks.length) {
         child.marks.forEach(mark => {
           const markDef = block.markDefs?.find(def => def._key === mark);
           switch (mark) {
-            case 'strong':
-              processedText = `<strong>${processedText}</strong>`;
-              break;
-            case 'em':
-              processedText = `<em>${processedText}</em>`;
-              break;
-            case 'code':
-              processedText = `<code>${processedText}</code>`;
-              break;
-            case 'underline':
-              processedText = `<u>${processedText}</u>`;
-              break;
-            case 'link':
-              const href = markDef?.href || '#';
-              const target = markDef?.blank ? ' target="_blank" rel="noopener"' : '';
-              processedText = `<a href="${href}"${target}>${processedText}</a>`;
+            default:
+              if (markDef && markDef._type === 'link') {
+                const href = markDef.href || '#';
+                const target = markDef.blank ? ' target="_blank" rel="noopener"' : '';
+                processedText = `<a href="${href}"${target}>${processedText}</a>`;
+                break;
+              }
+              switch (mark) {
+                case 'strong':
+                  processedText = `<strong>${processedText}</strong>`;
+                  break;
+                case 'em':
+                  processedText = `<em>${processedText}</em>`;
+                  break;
+                case 'code':
+                  processedText = `<code>${processedText}</code>`;
+                  break;
+                case 'underline':
+                  processedText = `<u>${processedText}</u>`;
+                  break;
+              }
               break;
           }
         });
@@ -322,8 +322,6 @@ class SanityClient {
 
       return processedText;
     }).join('');
-
-    return text;
   }
 
   // Get home page data
@@ -342,8 +340,8 @@ class SanityClient {
 
   // Get gallery data (all artworks)
   async getGalleryData(category = null) {
-    const query = category ? GROQ_QUERIES.GALLERY_BY_CATEGORY(category) : GROQ_QUERIES.GALLERY_ALL;
-    return await this.fetch(query);
+    if (!category) return await this.fetch(GROQ_QUERIES.GALLERY_ALL);
+    return await this.client.fetch(GROQ_QUERIES.GALLERY_BY_CATEGORY, { category });
   }
 
   // Get all blog posts
@@ -361,13 +359,13 @@ class SanityClient {
       return blogPost || this.sampleData.blogPosts[0]; // Fallback to first post
     }
 
-    return await this.fetch(GROQ_QUERIES.BLOG_POST_BY_SLUG(slug));
+    return await this.client.fetch(GROQ_QUERIES.BLOG_POST_BY_SLUG, { slug });
   }
 
   // Search artworks by title or tags
   async searchArtworks(searchTerm) {
-    const query = `
-      *[_type == "artwork" && (title match "*${searchTerm}*" || string::join(tags, " ") match "*${searchTerm}*")] | order(publishedAt desc) {
+    const query = `*[_type == "artwork" && (title match $term || tags[] match $term)]
+      | order(publishedAt desc) {
         _id,
         title,
         slug,
@@ -382,9 +380,8 @@ class SanityClient {
         featured,
         publishedAt,
         stripePaymentLink
-      }
-    `;
-    return await this.fetch(query);
+      }`;
+    return await this.client.fetch(query, { term: `*${searchTerm}*` });
   }
 
   // Get featured artworks

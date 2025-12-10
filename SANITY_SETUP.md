@@ -44,7 +44,7 @@ Update your `assets/js/sanityClient.js` file with your actual project ID:
 
 ```javascript
 const client = createClient({
-  projectId: 'your-actual-project-id', // Replace this
+  projectId: 'emdgbbhp',
   dataset: 'production',
   useCdn: true,
   apiVersion: '2023-05-03'
@@ -70,7 +70,7 @@ export default defineConfig({
   name: 'default',
   title: 'Art Website CMS',
 
-  projectId: 'your-project-id',
+  projectId: 'emdgbbhp',
   dataset: 'production',
 
   plugins: [deskTool()],
@@ -95,8 +95,14 @@ For your GitHub Pages domain to access Sanity's API, you need to configure CORS 
 ### Step 2: Add Your Domain
 
 Add the following origins:
-- `https://yourusername.github.io` (replace with your actual GitHub Pages URL)
-- `https://yourusername.github.io` (for localhost development)
+- `https://jojogatito.github.io`
+- `http://localhost:5500`
+- `http://127.0.0.1:5500`
+
+**Operational Notes**:
+- The `localhost` and `127.0.0.1` origins are for local development, allowing the frontend to connect to the Sanity API when running on a local server.
+- The `jojogatito.github.io` origin is for the production deployment on GitHub Pages.
+- If the deployment domain changes in the future, this list of CORS origins must be updated in the Sanity project settings to ensure the frontend can continue to fetch data.
 
 ### Step 3: Allowed Headers and Methods
 
@@ -132,7 +138,7 @@ export default defineConfig({
   name: 'default',
   title: 'Art Website CMS',
 
-  projectId: 'your-project-id',
+  projectId: 'emdgbbhp',
   dataset: 'production',
 
   plugins: [deskTool()],
