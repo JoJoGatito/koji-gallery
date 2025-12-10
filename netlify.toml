@@ -1,0 +1,13 @@
+# Netlify configuration for a minimal static site
+
+[build]
+  # Publish the root of the repository (all site files are in the repo root)
+  publish = "."
+
+# 404 handling
+# Netlify will automatically serve /404.html for missing pages.
+# The redirect below makes this behavior explicit (no SPA redirects involved).
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
