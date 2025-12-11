@@ -26,7 +26,8 @@ Before starting, ensure you have:
   - Assets under [assets/](assets)
   - Sanity client configuration in [assets/js/sanityClient.js](assets/js/sanityClient.js:14)
 - Sanity project configured for public, read‑only access:
-  - Project ID: `emdgbbhp` (see [assets/js/sanityClient.js](assets/js/sanityClient.js:15))
+  - Org ID: `oUM5kIc1e`
+  - Project ID: `t0ligyjl` (see [assets/js/sanityClient.js](assets/js/sanityClient.js:15))
   - Dataset: `production` (see [assets/js/sanityClient.js](assets/js/sanityClient.js:16))
   - API Version: `2024-10-01` (see [assets/js/sanityClient.js](assets/js/sanityClient.js:18))
   - useCdn: `true` (see [assets/js/sanityClient.js](assets/js/sanityClient.js:17))
@@ -127,7 +128,7 @@ A) Create a Netlify Build Hook
 - Copy the generated Build Hook URL
 
 B) Add a Sanity Webhook
-- Go to https://sanity.io/manage → Select your project (`emdgbbhp`)
+- Go to https://sanity.io/manage → Select your project (`t0ligyjl`)
 - Settings → API → Webhooks → “Add webhook”
 - URL: Paste the Netlify Build Hook URL
 - Method: POST

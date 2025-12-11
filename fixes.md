@@ -191,7 +191,7 @@ Note: You can keep `this.fetch(query)` for non-parameterized calls, but for para
 
 Your site canonical/meta references kojisartstudio.com, but the CORS list in docs references GitHub Pages. Add your live domain(s) in Sanity Manage.
 
-Actions (Sanity project emdgbbhp):
+Actions (Sanity project t0ligyjl, Org ID oUM5kIc1e):
 - Add Allowed Origins: 
   - https://kojisartstudio.com
   - https://www.kojisartstudio.com

@@ -1,6 +1,6 @@
 # Sanity Studio
 
-This Studio is configured for projectId "emdgbbhp" and dataset "production". Schemas are re-exported from the repository-level ./schemas directory.
+This Studio is configured for projectId "t0ligyjl" (Org ID "oUM5kIc1e") and dataset "production". Schemas are re-exported from the repository-level ./schemas directory.
 
 ## Prerequisites
 - Node.js 18+
@@ -20,4 +20,4 @@ npm run deploy
 
 ## Notes
 - Schema files are thin re-exports from ../schemas to avoid duplication.
-- Frontend client config is in ../assets/js/sanityClient.js and already points to projectId "emdgbbhp" and dataset "production".
+- Frontend client config is in ../assets/js/sanityClient.js and already points to projectId "t0ligyjl" and dataset "production".
