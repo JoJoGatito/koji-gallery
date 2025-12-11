@@ -12,11 +12,25 @@ npm install
 
 ## Development
 npm run dev
-# Opens http://localhost:3333
+# Opens http://localhost:3333/studio
 
-## Deploy (Sanity managed hosting)
+## Deploy Options
+
+### 1. Sanity-managed hosting
 npm run deploy
-# Follow the prompt to choose a studio host (you can set one later in sanity.cli.js if desired)
+# Deploys to https://t0ligyjl.sanity.studio
+
+### 2. Netlify-integrated hosting
+# When deployed to Netlify, the Studio will be available at:
+# https://koji-gallery.netlify.app/studio
+
+### 1. Sanity-managed hosting
+npm run deploy
+# Deploys to https://t0ligyjl.sanity.studio
+
+### 2. Netlify-integrated hosting
+# When deployed to Netlify, the Studio will be available at:
+# https://koji-gallery.netlify.app/studio
 
 ## Notes
 - Schema files are thin re-exports from ../schemas to avoid duplication.

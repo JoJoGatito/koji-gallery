@@ -54,11 +54,20 @@ The repository includes a minimal [netlify.toml](netlify.toml) with:
   from = "/*"
   to = "/404.html"
   status = 404
+
+# Special handling for Sanity Studio at /studio path
+# This ensures all Studio routes work correctly
+[[redirects]]
+  from = "/studio/*"
+  to = "/studio/index.html"
+  status = 200
 ```
 
 Key points:
 - Publish directory: The site is a plain static site located at the repository root. `publish = "."` (see [netlify.toml](netlify.toml:5)).
-- No build command: There is no bundler or framework build step required. Netlify should be configured with “No build command”.
+- No build command: There is no bundler or framework build step required. Netlify should be configured with "No build command".
+- Sanity Studio integration: The Studio is configured to be accessible at `/studio` path (see [studio/sanity.config.ts](studio/sanity.config.ts:14)). A special redirect ensures all Studio routes work correctly.
+- Sanity Studio integration: The Studio is configured to be accessible at `/studio` path (see [studio/sanity.config.ts](studio/sanity.config.ts:14)). A special redirect ensures all Studio routes work correctly.
 - 404 behavior: Explicit redirect ensures missing routes render [404.html](404.html). See [netlify.toml](netlify.toml:10)–[netlify.toml](netlify.toml:13).
 - SPA note: This site is not a single‑page app that needs `200` fallback routing. Do not set SPA catch‑all redirects.
 

@@ -72,6 +72,7 @@ export default defineConfig({
 
   projectId: 't0ligyjl',
   dataset: 'production',
+  basePath: '/studio', // Access Studio at your-site.com/studio
 
   plugins: [deskTool()],
 

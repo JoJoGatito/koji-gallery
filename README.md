@@ -142,7 +142,8 @@ If you have a custom domain:
    - Opens at `http://localhost:3333`
 
 2. **Production Studio**:
-- Visit `https://t0ligyjl.sanity.studio`
+- Visit `https://t0ligyjl.sanity.studio` (Sanity-hosted version)
+- Or access via your site at `https://koji-gallery.netlify.app/studio` (Netlify-hosted version)
 
 #### Adding New Artwork
 

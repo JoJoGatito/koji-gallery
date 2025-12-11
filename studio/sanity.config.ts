@@ -11,7 +11,7 @@ export default defineConfig({
   title: 'Art Website CMS',
   projectId: 't0ligyjl',
   dataset: 'production',
-  basePath: '/',
+  basePath: '/studio',
   plugins: [
     deskTool(),
   ],
