@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "sanity dev",
     "build": "sanity build",
-    "deploy": "sanity deploy --project emdgbbhp --dataset production"
+    "deploy": "sanity deploy --project t0ligyjl --dataset production"
   },
   "dependencies": {
     "react": "^18.3.1",

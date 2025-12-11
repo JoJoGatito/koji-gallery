@@ -1,5 +1,5 @@
 // Sanity Client Configuration and Utilities
-// Project ID: emdgbbhp
+ // Project ID: t0ligyjl
 // Dataset: production
 // API Version: 2023-05-03
 // Using CDN: true
@@ -12,7 +12,7 @@ import sampleData from './sampleData.json' assert { type: 'json' };
 
 // Sanity client configuration
 const client = createClient({
-  projectId: 'emdgbbhp',
+  projectId: 't0ligyjl',
   dataset: 'production',
   useCdn: true,
   apiVersion: '2024-10-01'

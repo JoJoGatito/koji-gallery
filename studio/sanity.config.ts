@@ -9,7 +9,7 @@ import artistProfile from './schemas/artistProfile.js'
 export default defineConfig({
   name: 'default',
   title: 'Art Website CMS',
-  projectId: 'emdgbbhp',
+  projectId: 't0ligyjl',
   dataset: 'production',
   basePath: '/',
   plugins: [

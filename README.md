@@ -142,7 +142,7 @@ If you have a custom domain:
    - Opens at `http://localhost:3333`
 
 2. **Production Studio**:
-- Visit `https://emdgbbhp.sanity.studio`
+- Visit `https://t0ligyjl.sanity.studio`
 
 #### Adding New Artwork
 
@@ -211,7 +211,8 @@ If you have a custom domain:
 
 ### Sanity Configuration
 
-- **Project ID**: `emdgbbhp`
+- **Project ID**: `t0ligyjl`
+- **Org ID**: `oUM5kIc1e`
 - **Dataset**: `production`
 - **CORS Origins**:
   - `https://jojogatito.github.io`

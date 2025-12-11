@@ -44,10 +44,10 @@ Update your `assets/js/sanityClient.js` file with your actual project ID:
 
 ```javascript
 const client = createClient({
-  projectId: 'emdgbbhp',
+  projectId: 't0ligyjl',
   dataset: 'production',
   useCdn: true,
-  apiVersion: '2023-05-03'
+  apiVersion: '2024-10-01'
 });
 ```
 
@@ -70,7 +70,7 @@ export default defineConfig({
   name: 'default',
   title: 'Art Website CMS',
 
-  projectId: 'emdgbbhp',
+  projectId: 't0ligyjl',
   dataset: 'production',
 
   plugins: [deskTool()],
@@ -138,7 +138,7 @@ export default defineConfig({
   name: 'default',
   title: 'Art Website CMS',
 
-  projectId: 'emdgbbhp',
+  projectId: 't0ligyjl',
   dataset: 'production',
 
   plugins: [deskTool()],

@@ -10,7 +10,7 @@ This guide provides detailed instructions for configuring your Sanity project se
 ## Prerequisites
 
 - You must be the project owner or have admin access to the Sanity project
-- Project ID: `emdgbbhp` (already configured in your `sanityClient.js`)
+- Project ID: `t0ligyjl` (already configured in your `sanityClient.js`)
 
 ## Step 1: Configure Production Dataset Visibility
 
@@ -23,7 +23,7 @@ This guide provides detailed instructions for configuring your Sanity project se
    - Log in with your Sanity account credentials
 
 2. **Select Your Project**
-- Find and click on your project (Project ID: `emdgbbhp`)
+- Find and click on your project (Project ID: `t0ligyjl`)
    - The project should be visible in your project list
 
 3. **Navigate to API Settings**
@@ -99,7 +99,7 @@ Access-Control-Allow-Origin error
 - Check that changes were saved
 
 **2. Dataset Not Visible**
-- Confirm you're looking at the correct project (ID: `emdgbbhp`)
+- Confirm you're looking at the correct project (ID: `t0ligyjl`)
 - Ensure you have admin access to the project
 - Try refreshing the management interface
 
@@ -130,7 +130,7 @@ Access-Control-Allow-Origin error
 If you encounter issues:
 
 1. **Double-check** all steps in this guide
-2. **Verify** your project ID (`emdgbbhp`) in the Sanity management console
+2. **Verify** your project ID (`t0ligyjl`) in the Sanity management console
 3. **Test** with different browsers if issues persist
 4. **Contact** Sanity support if configuration options are not available
 
@@ -146,7 +146,8 @@ After completing this configuration:
 ---
 
 **Project Details:**
-- Project ID: `emdgbbhp`
+- Project ID: `t0ligyjl`
+- Org ID: `oUM5kIc1e`
 - Primary Domain: `https://jojogatito.github.io`
 - Dataset: `production`
 - Last Updated: October 2025
