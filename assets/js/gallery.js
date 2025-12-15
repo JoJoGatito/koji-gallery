@@ -8,17 +8,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const lightboxNext = document.getElementById('lightboxNext');
     
     let currentImageIndex = 0;
-    const galleryImages = document.querySelectorAll('[data-lightbox]');
+    let galleryImages = [];
     
     // Filter functionality
     const filterTabs = document.querySelectorAll('.filter-tab');
     const artworkGrid = document.getElementById('artworkGrid');
+
+    function refreshGalleryImages() {
+        galleryImages = document.querySelectorAll('[data-lightbox]');
+        galleryImages.forEach((img, index) => {
+            img.addEventListener('click', () => openLightbox(index));
+        });
+    }
     
-    
-    // Lightbox event listeners
-    galleryImages.forEach((img, index) => {
-        img.addEventListener('click', () => openLightbox(index));
-    });
     
     lightboxClose.addEventListener('click', closeLightbox);
     lightboxPrev.addEventListener('click', showPrevImage);
@@ -128,51 +130,63 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             if (!allArtworks || !allArtworks.length) {
                 console.warn('No artworks returned from Sanity; using static gallery images');
+                refreshGalleryImages();
                 return;
             }
 
-            const artworkCards = document.querySelectorAll('.artwork-card');
-            console.log('[Gallery] Found artwork cards in DOM:', artworkCards.length);
+            // Clear any hardcoded placeholder cards
+            if (artworkGrid) {
+                artworkGrid.innerHTML = '';
+            }
 
-            const normalizeTitle = (title) => {
-                return (title || '')
-                    .toString()
-                    .trim()
-                    .toLowerCase()
-                    .replace(/\s+/g, ' ');
-            };
-
-            artworkCards.forEach(card => {
-                const titleEl = card.querySelector('.artwork-title');
-                const imgEl = card.querySelector('.artwork-image');
-
-                if (!titleEl || !imgEl) {
-                    console.warn('[Gallery] Missing title or image element on card; skipping.', card);
+            allArtworks.forEach((artwork, index) => {
+                if (!artwork || !artwork.heroImage) {
+                    console.warn('[Gallery] Skipping artwork without heroImage:', artwork?.title || artwork?._id);
                     return;
                 }
 
-                const titleText = normalizeTitle(titleEl.textContent);
-                if (!titleText) {
-                    console.warn('[Gallery] Empty title text on card; skipping.', card);
-                    return;
-                }
+                const card = document.createElement('div');
+                card.className = 'artwork-card';
 
-                const matchingArtwork = allArtworks.find(art =>
-                    normalizeTitle(art.title) === titleText
-                );
+                // Map Sanity category to DOM category (used by filter buttons)
+                const rawCategory = (artwork.category || '').toLowerCase();
+                let domCategory = 'oc';
+                if (rawCategory === 'fanart') {
+                    domCategory = 'fanart';
+                }
+                card.dataset.category = domCategory;
 
-                if (!matchingArtwork) {
-                    console.warn('[Gallery] No matching artwork found in Sanity for title:', titleEl.textContent);
-                    return;
+                const imgEl = document.createElement('img');
+                imgEl.className = 'artwork-image';
+                imgEl.alt = artwork.title || '';
+                imgEl.dataset.lightbox = String(index);
+
+                const infoEl = document.createElement('div');
+                infoEl.className = 'artwork-info';
+
+                const titleEl = document.createElement('h3');
+                titleEl.className = 'artwork-title';
+                titleEl.textContent = artwork.title || '';
+
+                const statusEl = document.createElement('span');
+                statusEl.className = 'artwork-status';
+
+                const availability = artwork.availability || 'Available';
+                let statusClass = 'status-available';
+                if (availability === 'SoldOut' || availability === 'Sold') {
+                    statusClass = 'status-sold';
+                } else if (availability === 'Commission') {
+                    statusClass = 'status-commission';
                 }
-                if (!matchingArtwork.heroImage) {
-                    console.warn('[Gallery] Matching artwork has no heroImage in Sanity for title:', matchingArtwork.title);
-                    return;
-                }
+                statusEl.classList.add(statusClass);
+                statusEl.textContent = availability === 'SoldOut' ? 'Sold' : availability;
+
+                infoEl.appendChild(titleEl);
+                infoEl.appendChild(statusEl);
 
                 const responsiveImage = window.sanityClient.processImageForResponsive(
-                    matchingArtwork.heroImage,
-                    imgEl.alt || matchingArtwork.title || ''
+                    artwork.heroImage,
+                    imgEl.alt || artwork.title || ''
                 );
 
                 if (responsiveImage && responsiveImage.src) {
@@ -182,9 +196,21 @@ document.addEventListener('DOMContentLoaded', function() {
                         imgEl.sizes = responsiveImage.sizes;
                     }
                 }
+
+                card.appendChild(imgEl);
+                card.appendChild(infoEl);
+
+                if (artworkGrid) {
+                    artworkGrid.appendChild(card);
+                }
             });
+
+            // After dynamically rendering cards, wire up lightbox handlers
+            refreshGalleryImages();
         } catch (error) {
             console.error('Error initializing gallery images from Sanity:', error);
+            // Fall back to whatever markup exists and ensure lightbox works
+            refreshGalleryImages();
         }
     }
     
