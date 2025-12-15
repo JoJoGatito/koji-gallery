@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     const data = await window.sanityClient.getHomePageData();
+    const artistProfile = await window.sanityClient.getArtistProfile();
     if (!data) {
       console.warn('No home page data returned from Sanity');
       return;
@@ -128,15 +129,33 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
 
-    // Artist avatar image: use a featured OC artwork hero as a stand-in if available
-    const avatarImg = document.querySelector('.artist-bio .bio-image img.avatar');
-    if (avatarImg) {
-      const avatarSource =
-        (ocArtworks.find(a => a.heroImage) || fanArtworks.find(a => a.heroImage)) || null;
-      if (avatarSource && avatarSource.heroImage) {
-        setImageFromSanity(avatarImg, avatarSource.heroImage, "Koji's avatar");
-      }
-    }
+        // Artist avatar and bio from Sanity artistProfile, with fallback to artwork-based avatar
+        const avatarImg = document.querySelector('.artist-bio .bio-image img.avatar');
+        const bioContainer = document.querySelector('.artist-bio .bio-text');
+    
+        if (typeof artistProfile !== 'undefined' && artistProfile) {
+          if (avatarImg && artistProfile.profileImage) {
+            setImageFromSanity(
+              avatarImg,
+              artistProfile.profileImage,
+              "Koji's avatar"
+            );
+          }
+    
+          if (bioContainer && Array.isArray(artistProfile.bio) && artistProfile.bio.length) {
+            const bioHtml = window.sanityClient.renderPortableText(artistProfile.bio);
+            if (bioHtml) {
+              bioContainer.innerHTML = bioHtml;
+            }
+          }
+        } else if (avatarImg) {
+          // Fallback: use a featured OC or fan artwork hero image as avatar
+          const avatarSource =
+            (ocArtworks.find(a => a.heroImage) || fanArtworks.find(a => a.heroImage)) || null;
+          if (avatarSource && avatarSource.heroImage) {
+            setImageFromSanity(avatarImg, avatarSource.heroImage, "Koji's avatar");
+          }
+        }
 
     // Homepage OG/Twitter image: prefer first OC hero, fall back to latest blog main image
     let ogImageUrl = null;

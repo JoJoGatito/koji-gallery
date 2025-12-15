@@ -108,34 +108,43 @@ const GROQ_QUERIES = {
     }
   `,
 
-  // Blog page: Fetch all blog posts
-  ALL_BLOG_POSTS: `
-    *[_type == "blogPost"] | order(publishedAt desc) {
-      _id,
-      title,
-      slug,
-      excerpt,
-      mainImage,
-      body,
-      tags,
-      publishedAt
-    }
-  `,
-
-  // Individual blog post by slug
-  BLOG_POST_BY_SLUG: `
-    *[_type == "blogPost" && slug.current == $slug][0] {
-      _id,
-      title,
-      slug,
-      excerpt,
-      mainImage,
-      body,
-      tags,
-      publishedAt
-    }
-  `
-};
+    // Blog page: Fetch all blog posts
+      ALL_BLOG_POSTS: `
+        *[_type == "blogPost"] | order(publishedAt desc) {
+          _id,
+          title,
+          slug,
+          excerpt,
+          mainImage,
+          body,
+          tags,
+          publishedAt
+        }
+      `,
+    
+      // Individual blog post by slug
+      BLOG_POST_BY_SLUG: `
+        *[_type == "blogPost" && slug.current == $slug][0] {
+          _id,
+          title,
+          slug,
+          excerpt,
+          mainImage,
+          body,
+          tags,
+          publishedAt
+        }
+      `,
+    
+      // Artist profile used for homepage "About Koji" section
+      ARTIST_PROFILE: `
+        *[_type == "artistProfile"][0] {
+          _id,
+          bio,
+          profileImage
+        }
+      `
+    };
 
 // Sanity Client Class
 class SanityClient {
@@ -417,13 +426,7 @@ class SanityClient {
 
   // Get artist profile
   async getArtistProfile() {
-    if (this.developmentMode) {
-      return this.sampleData.artistProfile;
-    }
-
-    // In a real implementation, this would fetch from Sanity
-    // For now, return null as artist profile is optional
-    return null;
+    return await this.fetch(GROQ_QUERIES.ARTIST_PROFILE);
   }
 }
 
