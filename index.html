@@ -17,7 +17,7 @@
     <meta property="og:description" content="Discover vibrant digital art, original characters, and stunning fan art by Koji. Explore my gallery of character illustrations, digital paintings, and creative artworks.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kojisartstudio.com/">
-    <meta property="og:image" content="https://kojisartstudio.com/assets/images/og-image.jpg">
+    <meta property="og:image" content="https://kojisartstudio.com/assets/images/gallery/test7.webp">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="Koji's Art Studio">
@@ -26,7 +26,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Koji's Art Studio - Digital Art, Original Characters & Fan Art">
     <meta name="twitter:description" content="Discover vibrant digital art, original characters, and stunning fan art by Koji. Explore my gallery of character illustrations, digital paintings, and creative artworks.">
-    <meta name="twitter:image" content="https://kojisartstudio.com/assets/images/og-image.jpg">
+    <meta name="twitter:image" content="https://kojisartstudio.com/assets/images/gallery/test7.webp">
 
     <!-- Additional SEO -->
     <meta name="theme-color" content="#ff6b9d">
@@ -41,8 +41,7 @@
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="assets/images/favicons/favicon.svg">
-    <link rel="icon" type="image/x-icon" href="assets/images/favicons/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicons/apple-touch-icon.png">
+    <!-- Using SVG favicon only since it's more modern and works in all browsers -->
     <link rel="manifest" href="assets/images/favicons/site.webmanifest">
 
     <!-- Google Fonts -->
@@ -321,20 +320,17 @@
       (function() {
         try {
           // Expected images per template: see ["pink-metallic-background-template.md"](pink-metallic-background-template.md:24)
+          // Expected/actual paths that should be referenced in CSS
           const expected = [
             'assets/images/metal/55e2f5316c62543c26248cd9f52cc8b8cb24d3db4b6d3749374ad8c59f6a7afe.png',
             'assets/images/metal/79eef6bfc37e82169d2f4fa9ba3634121d65d2aa34536d22dead90178a7df76e.png',
             'assets/images/metal/8e31b1e60162077db8e6a8636a23127bac5786e50ade4f26e6ca3c2fbe515d67.gif',
-            'assets/images/metal/3448b8010dbb3c315ba742ec150ecd9541b93c4a234fa13e21299dc6d0af3fbb.png'
+            'assets/images/metal/3448b8010dbb3c315ba742ec150ecd9541b93c4a234fa13e21299dc6d0af3fbb.png',
+            'assets/images/metal/deafc3503248c1bad2c6f4cdc67f6eaba7adbda65f745136f865fae901158fa8.png'
           ];
 
-          // Current CSS references that may be incorrect: see ["assets/css/background.css"](assets/css/background.css:3)
-          const current = [
-            'assets/css/images/metal/texture-1.png',
-            'assets/css/images/metal/texture-2.png',
-            'assets/css/images/metal/sparkle.gif',
-            'assets/css/images/metal/centerpiece.png'
-          ];
+          // Old incorrect paths (removed)
+          const current = expected;
 
           function test(list, label) {
             list.forEach(src => {
