@@ -186,6 +186,58 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Handle sold out items after a brief delay to ensure DOM is ready
     setTimeout(handleSoldOutItems, 100);
+
+    // Replace hardcoded gallery images with Sanity-managed images when available
+    async function initializeGalleryImagesFromSanity() {
+        if (!window.artworkData || !window.sanityClient) {
+            console.warn('Sanity artwork data not available; using static gallery images');
+            return;
+        }
+
+        try {
+            // Ensure Sanity artwork data is loaded
+            if (!window.artworkData.loaded) {
+                await window.artworkData.initialize();
+            }
+
+            const allArtworks = window.artworkData.getAllArtworks();
+            if (!allArtworks || !allArtworks.length) {
+                console.warn('No artworks returned from Sanity; using static gallery images');
+                return;
+            }
+
+            const artworkCards = document.querySelectorAll('.artwork-card');
+            artworkCards.forEach(card => {
+                const addToCartBtn = card.querySelector('.btn-add-cart');
+                const slugFromDom = addToCartBtn?.dataset.artwork;
+                if (!slugFromDom) return;
+
+                const matchingArtwork = allArtworks.find(art =>
+                    art.slug?.current === slugFromDom
+                );
+
+                if (!matchingArtwork || !matchingArtwork.heroImage) return;
+
+                const imgEl = card.querySelector('.artwork-image');
+                if (!imgEl) return;
+
+                const responsiveImage = window.sanityClient.processImageForResponsive(
+                    matchingArtwork.heroImage,
+                    imgEl.alt || matchingArtwork.title || ''
+                );
+
+                if (responsiveImage && responsiveImage.src) {
+                    imgEl.src = responsiveImage.src;
+                    if (responsiveImage.srcset) {
+                        imgEl.srcset = responsiveImage.srcset;
+                        imgEl.sizes = responsiveImage.sizes;
+                    }
+                }
+            });
+        } catch (error) {
+            console.error('Error initializing gallery images from Sanity:', error);
+        }
+    }
     
     // Mobile menu functionality
     const hamburgerMenu = document.querySelector('.hamburger-menu');
@@ -198,6 +250,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize cart counter
     updateCartCounter();
+
+    // Initialize Sanity-powered gallery images
+    initializeGalleryImagesFromSanity();
 });
 
 // CSS animations for notifications
