@@ -14,20 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterTabs = document.querySelectorAll('.filter-tab');
     const artworkGrid = document.getElementById('artworkGrid');
     
-    // Cart integration with new cart system
-    const cartCounter = document.querySelector('.cart-counter');
-    const addToCartButtons = document.querySelectorAll('.btn-add-cart');
-    const buyNowButtons = document.querySelectorAll('.btn-buy-now');
-
-    // Cart button event listener
-    const cartButton = document.querySelector('.cart-button');
-    if (cartButton) {
-        cartButton.addEventListener('click', () => {
-            if (window.cartManager) {
-                window.cartManager.openCartDrawer();
-            }
-        });
-    }
     
     // Lightbox event listeners
     galleryImages.forEach((img, index) => {
@@ -47,26 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Add to cart event listeners
-    addToCartButtons.forEach(button => {
-        if (!button.disabled) {
-            button.addEventListener('click', () => handleAddToCart(button.dataset.artwork));
-        }
-    });
-
-    // Buy now button event listeners
-    buyNowButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            const artworkId = button.closest('.artwork-card')?.querySelector('.btn-add-cart')?.dataset.artwork;
-            if (artworkId && window.artworkData) {
-                const artwork = window.artworkData.getArtworkById(artworkId);
-                if (artwork && artwork.stripePaymentLink) {
-                    window.open(artwork.stripePaymentLink, '_blank');
-                }
-            }
-        });
-    });
     
     // Keyboard navigation for lightbox
     document.addEventListener('keydown', (e) => {
@@ -131,61 +97,10 @@ document.addEventListener('DOMContentLoaded', function() {
         activeTab.classList.add('active');
     }
     
-    // Cart functions
-    function handleAddToCart(artworkId) {
-        if (window.artworkData && window.cartManager) {
-            const artwork = window.artworkData.getArtworkById(artworkId);
-            if (artwork) {
-                window.cartManager.addToCart(artwork);
-            }
-        }
-    }
     
     // Initialize artwork data globally for access by other scripts
     window.artworkData = new ArtworkDataManager();
 
-    // Handle sold out items - disable buttons and update styling
-    function handleSoldOutItems() {
-        const artworkCards = document.querySelectorAll('.artwork-card');
-
-        artworkCards.forEach(card => {
-            const addToCartBtn = card.querySelector('.btn-add-cart');
-            const buyNowBtn = card.querySelector('.btn-buy-now');
-            const artworkId = addToCartBtn?.dataset.artwork;
-
-            if (artworkId) {
-                const artwork = window.artworkData.getArtworkById(artworkId);
-
-                if (artwork && artwork.availability === 'SoldOut') {
-                    // Disable buttons
-                    if (addToCartBtn) {
-                        addToCartBtn.disabled = true;
-                        addToCartBtn.textContent = 'Sold Out';
-                        addToCartBtn.style.background = 'var(--gray)';
-                        addToCartBtn.style.borderColor = 'var(--gray)';
-                        addToCartBtn.style.cursor = 'not-allowed';
-                    }
-
-                    if (buyNowBtn) {
-                        buyNowBtn.disabled = true;
-                        buyNowBtn.style.background = 'var(--gray)';
-                        buyNowBtn.style.borderColor = 'var(--gray)';
-                        buyNowBtn.style.cursor = 'not-allowed';
-                        buyNowBtn.style.color = 'var(--white)';
-                    }
-
-                    // Update status styling if it's just "Sold" instead of proper "SoldOut"
-                    const statusElement = card.querySelector('.artwork-status');
-                    if (statusElement && statusElement.textContent.trim() === 'Sold') {
-                        statusElement.className = 'artwork-status status-sold';
-                    }
-                }
-            }
-        });
-    }
-
-    // Handle sold out items after a brief delay to ensure DOM is ready
-    setTimeout(handleSoldOutItems, 100);
 
     // Replace hardcoded gallery images with Sanity-managed images when available
     async function initializeGalleryImagesFromSanity() {
@@ -248,10 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
         hamburgerMenu.classList.toggle('active');
     });
     
-    // Initialize cart counter
-    updateCartCounter();
-
-    // Initialize Sanity-powered gallery images
+        // Initialize Sanity-powered gallery images
     initializeGalleryImagesFromSanity();
 });
 

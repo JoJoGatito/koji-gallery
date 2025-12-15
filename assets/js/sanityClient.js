@@ -26,7 +26,7 @@ const GROQ_QUERIES = {
   // Home page: Fetch latest 3 OC artworks, latest 3 Fan Art, and latest blog post
   HOME_PAGE: `
     {
-      "ocArtworks": *[_type == "artwork" && category == "OC" && featured == true] | order(publishedAt desc)[0...3] {
+      "ocArtworks": *[_type == "artwork" && category == "OC"] | order(publishedAt desc)[0...3] {
         _id,
         title,
         slug,
@@ -42,7 +42,7 @@ const GROQ_QUERIES = {
         publishedAt,
         stripePaymentLink
       },
-      "fanArtworks": *[_type == "artwork" && category == "FanArt" && featured == true] | order(publishedAt desc)[0...3] {
+      "fanArtworks": *[_type == "artwork" && category == "FanArt"] | order(publishedAt desc)[0...3] {
         _id,
         title,
         slug,
@@ -329,8 +329,12 @@ class SanityClient {
     if (this.developmentMode) {
       // Return structured sample data matching the home page query format
       return {
-        ocArtworks: this.sampleData.artworks.filter(art => art.category === 'OC' && art.featured).slice(0, 3),
-        fanArtworks: this.sampleData.artworks.filter(art => art.category === 'FanArt' && art.featured).slice(0, 3),
+        ocArtworks: this.sampleData.artworks
+          .filter(art => art.category === 'OC')
+          .slice(0, 3),
+        fanArtworks: this.sampleData.artworks
+          .filter(art => art.category === 'FanArt')
+          .slice(0, 3),
         latestBlogPost: this.sampleData.blogPosts[0]
       };
     }

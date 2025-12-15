@@ -364,8 +364,7 @@ kojis-art-studio/
 │   │   ├── main.js
 │   │   ├── sanityClient.js
 │   │   ├── gallery.js
-│   │   ├── blog.js
-│   │   └── cart.js
+│   │   └── blog.js
 │   └── images/              # Image assets
 │       ├── favicons/
 │       ├── metal/           # Background textures
@@ -377,7 +376,6 @@ kojis-art-studio/
 
 ### Documentation
 - [Sanity CMS Documentation](https://www.sanity.io/docs)
-- [Stripe Payment Links](https://stripe.com/docs/payment-links)
 - [GitHub Pages Guide](https://docs.github.com/en/pages)
 
 ### Community

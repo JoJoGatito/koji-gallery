@@ -120,15 +120,6 @@ export default {
       validation: Rule => Rule.required(),
       initialValue: () => new Date().toISOString()
     },
-    {
-      name: 'stripePaymentLink',
-      title: 'Stripe Payment Link',
-      type: 'url',
-      description: 'Direct link to Stripe payment page for this artwork',
-      validation: Rule => Rule.uri({
-        scheme: ['https']
-      })
-    }
   ],
   preview: {
     select: {

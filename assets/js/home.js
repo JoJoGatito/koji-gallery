@@ -45,14 +45,36 @@ document.addEventListener('DOMContentLoaded', async () => {
     const fanSection = corkSections[1];
     const blogSection = corkSections[2];
 
+    const featuredArtworks = [];
+
     // Map OC artworks to first corkboard section thumbnails
     if (ocSection && ocArtworks.length) {
       const notes = ocSection.querySelectorAll('.corkboard-grid .pinned-note');
       ocArtworks.slice(0, notes.length).forEach((artwork, index) => {
         const note = notes[index];
         if (!note) return;
+
+        const globalIndex = featuredArtworks.length;
+        featuredArtworks.push(artwork);
+
         const img = note.querySelector('img.artwork-thumb');
         setImageFromSanity(img, artwork.heroImage, artwork.title);
+
+        const titleEl = note.querySelector('h4');
+        if (titleEl && artwork.title) {
+          titleEl.textContent = artwork.title;
+        }
+
+        const descEl = note.querySelector('p');
+        if (descEl && artwork.description) {
+          const text = artwork.description;
+          descEl.textContent = text.length > 140 ? `${text.slice(0, 137)}...` : text;
+        }
+
+        const button = note.querySelector('.btn-small');
+        if (button) {
+          button.dataset.featureIndex = String(globalIndex);
+        }
       });
     }
 
@@ -62,8 +84,28 @@ document.addEventListener('DOMContentLoaded', async () => {
       fanArtworks.slice(0, notes.length).forEach((artwork, index) => {
         const note = notes[index];
         if (!note) return;
+
+        const globalIndex = featuredArtworks.length;
+        featuredArtworks.push(artwork);
+
         const img = note.querySelector('img.artwork-thumb');
         setImageFromSanity(img, artwork.heroImage, artwork.title);
+
+        const titleEl = note.querySelector('h4');
+        if (titleEl && artwork.title) {
+          titleEl.textContent = artwork.title;
+        }
+
+        const descEl = note.querySelector('p');
+        if (descEl && artwork.description) {
+          const text = artwork.description;
+          descEl.textContent = text.length > 140 ? `${text.slice(0, 137)}...` : text;
+        }
+
+        const button = note.querySelector('.btn-small');
+        if (button) {
+          button.dataset.featureIndex = String(globalIndex);
+        }
       });
     }
 
@@ -109,6 +151,111 @@ document.addEventListener('DOMContentLoaded', async () => {
       const twitterMeta = document.querySelector('meta[name="twitter:image"]');
       if (ogMeta) ogMeta.setAttribute('content', ogImageUrl);
       if (twitterMeta) twitterMeta.setAttribute('content', ogImageUrl);
+    }
+
+    // Homepage lightbox wiring for featured artworks
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+
+    if (
+      lightbox &&
+      lightboxImage &&
+      lightboxClose &&
+      lightboxPrev &&
+      lightboxNext &&
+      featuredArtworks.length
+    ) {
+      let currentIndex = 0;
+
+      const openLightboxAtIndex = (index) => {
+        if (!featuredArtworks.length) return;
+        const safeIndex = index >= 0 && index < featuredArtworks.length ? index : 0;
+        currentIndex = safeIndex;
+
+        const artwork = featuredArtworks[safeIndex];
+        if (!artwork || !artwork.heroImage) return;
+
+        const imageUrl = window.sanityClient.getImageUrl(artwork.heroImage, 1200, null);
+        lightboxImage.src = imageUrl || '';
+        lightboxImage.alt = artwork.title || '';
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        console.log('[Home] Opened homepage lightbox for artwork:', artwork.title || artwork._id);
+      };
+
+      const closeLightbox = () => {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      const showPrevImage = () => {
+        if (!featuredArtworks.length) return;
+        currentIndex = currentIndex > 0 ? currentIndex - 1 : featuredArtworks.length - 1;
+        openLightboxAtIndex(currentIndex);
+      };
+
+      const showNextImage = () => {
+        if (!featuredArtworks.length) return;
+        currentIndex = currentIndex < featuredArtworks.length - 1 ? currentIndex + 1 : 0;
+        openLightboxAtIndex(currentIndex);
+      };
+
+      lightboxClose.addEventListener('click', (event) => {
+        event.stopPropagation();
+        closeLightbox();
+      });
+
+      lightboxPrev.addEventListener('click', (event) => {
+        event.stopPropagation();
+        showPrevImage();
+      });
+
+      lightboxNext.addEventListener('click', (event) => {
+        event.stopPropagation();
+        showNextImage();
+      });
+
+      lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (!lightbox.classList.contains('active')) return;
+        if (event.key === 'Escape') {
+          closeLightbox();
+        } else if (event.key === 'ArrowLeft') {
+          showPrevImage();
+        } else if (event.key === 'ArrowRight') {
+          showNextImage();
+        }
+      });
+
+      const detailButtons = document.querySelectorAll('.latest-work .btn-small');
+      detailButtons.forEach((button) => {
+        const indexStr = button.dataset.featureIndex;
+        const index = indexStr ? parseInt(indexStr, 10) : NaN;
+        if (Number.isNaN(index)) return;
+
+        button.addEventListener('click', () => {
+          console.log('[Home] View Details clicked, feature index:', index);
+          openLightboxAtIndex(index);
+        });
+      });
+
+      console.log(
+        '[Home] Homepage lightbox initialized with featured artworks:',
+        featuredArtworks.length
+      );
+    } else {
+      console.warn(
+        '[Home] Homepage lightbox not initialized: missing DOM elements or featured artworks'
+      );
     }
   } catch (error) {
     console.error('Error initializing homepage from Sanity:', error);
