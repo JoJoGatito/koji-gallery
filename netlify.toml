@@ -16,5 +16,5 @@
 # This ensures all Studio routes work correctly
 [[redirects]]
   from = "/studio/*"
-  to = "/studio/index.html"
+  to = "/studio-built/index.html"
   status = 200
