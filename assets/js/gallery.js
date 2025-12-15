@@ -45,22 +45,58 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === 'ArrowRight') showNextImage();
     });
     
-    // Lightbox functions
-    function openLightbox(index) {
-        currentImageIndex = index;
-        const imageSrc = galleryImages[index].src;
-        const imageAlt = galleryImages[index].alt;
-        
-        lightboxImage.src = imageSrc;
-        lightboxImage.alt = imageAlt;
-        lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
+        // Lightbox functions
+        function openLightbox(index) {
+            currentImageIndex = index;
     
-    function closeLightbox() {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = '';
-    }
+            const triggerImage = galleryImages[index];
+            const imageSrc = triggerImage.src;
+            const imageAlt = triggerImage.alt;
+            const aspectRatio = triggerImage.dataset.aspectRatio || 'auto';
+    
+            lightboxImage.src = imageSrc;
+            lightboxImage.alt = imageAlt;
+    
+            // Reset any previous aspect ratio overrides
+            lightboxImage.style.removeProperty('aspect-ratio');
+            lightbox.classList.remove(
+                'lightbox-aspect-square',
+                'lightbox-aspect-portrait',
+                'lightbox-aspect-landscape',
+                'lightbox-aspect-ultrawide'
+            );
+    
+            // Apply aspect ratio metadata from Studio to help frame the artwork correctly
+            if (aspectRatio && aspectRatio !== 'auto') {
+                // CSS aspect-ratio uses "width / height" syntax
+                lightboxImage.style.aspectRatio = aspectRatio.replace(':', ' / ');
+    
+                if (aspectRatio === '1:1') {
+                    lightbox.classList.add('lightbox-aspect-square');
+                } else if (aspectRatio === '3:4' || aspectRatio === '2:3') {
+                    lightbox.classList.add('lightbox-aspect-portrait');
+                } else if (aspectRatio === '4:3') {
+                    lightbox.classList.add('lightbox-aspect-landscape');
+                } else if (aspectRatio === '16:9') {
+                    lightbox.classList.add('lightbox-aspect-ultrawide');
+                }
+            }
+    
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeLightbox() {
+            lightbox.classList.remove(
+                'active',
+                'lightbox-aspect-square',
+                'lightbox-aspect-portrait',
+                'lightbox-aspect-landscape',
+                'lightbox-aspect-ultrawide'
+            );
+            lightboxImage.style.removeProperty('aspect-ratio');
+            document.body.style.overflow = '';
+        }
     
     function showPrevImage() {
         currentImageIndex = currentImageIndex > 0 ? currentImageIndex - 1 : galleryImages.length - 1;
@@ -73,11 +109,37 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function updateLightboxImage() {
-        const imageSrc = galleryImages[currentImageIndex].src;
-        const imageAlt = galleryImages[currentImageIndex].alt;
+        const triggerImage = galleryImages[currentImageIndex];
+        const imageSrc = triggerImage.src;
+        const imageAlt = triggerImage.alt;
+        const aspectRatio = triggerImage.dataset.aspectRatio || 'auto';
         
         lightboxImage.src = imageSrc;
         lightboxImage.alt = imageAlt;
+
+        // Reset any previous aspect ratio overrides
+        lightboxImage.style.removeProperty('aspect-ratio');
+        lightbox.classList.remove(
+            'lightbox-aspect-square',
+            'lightbox-aspect-portrait',
+            'lightbox-aspect-landscape',
+            'lightbox-aspect-ultrawide'
+        );
+
+        // Apply aspect ratio metadata from Studio
+        if (aspectRatio && aspectRatio !== 'auto') {
+            lightboxImage.style.aspectRatio = aspectRatio.replace(':', ' / ');
+
+            if (aspectRatio === '1:1') {
+                lightbox.classList.add('lightbox-aspect-square');
+            } else if (aspectRatio === '3:4' || aspectRatio === '2:3') {
+                lightbox.classList.add('lightbox-aspect-portrait');
+            } else if (aspectRatio === '4:3') {
+                lightbox.classList.add('lightbox-aspect-landscape');
+            } else if (aspectRatio === '16:9') {
+                lightbox.classList.add('lightbox-aspect-ultrawide');
+            }
+        }
     }
     
     // Filter functions
@@ -160,6 +222,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 imgEl.className = 'artwork-image';
                 imgEl.alt = artwork.title || '';
                 imgEl.dataset.lightbox = String(index);
+
+                // Persist aspect ratio choice from Studio onto the thumbnail so the lightbox can read it
+                if (artwork.aspectRatio) {
+                    imgEl.dataset.aspectRatio = artwork.aspectRatio;
+
+                    // Optionally hint the browser about the thumbnail aspect ratio to reduce layout shift
+                    if (artwork.aspectRatio !== 'auto') {
+                        imgEl.style.aspectRatio = artwork.aspectRatio.replace(':', ' / ');
+                    }
+                }
 
                 const infoEl = document.createElement('div');
                 infoEl.className = 'artwork-info';

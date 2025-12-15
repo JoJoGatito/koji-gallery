@@ -51,6 +51,24 @@ export default {
       validation: Rule => Rule.required()
     },
     {
+      name: 'aspectRatio',
+      title: 'Aspect Ratio (for lightbox)',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Auto (use original image)', value: 'auto' },
+          { title: 'Square 1:1', value: '1:1' },
+          { title: 'Portrait 3:4', value: '3:4' },
+          { title: 'Portrait 2:3', value: '2:3' },
+          { title: 'Landscape 4:3', value: '4:3' },
+          { title: 'Landscape 16:9', value: '16:9' }
+        ],
+        layout: 'dropdown'
+      },
+      initialValue: 'auto',
+      description: 'Controls how this artwork is framed in the gallery lightbox.'
+    },
+    {
       name: 'publishedAt',
       title: 'Published At',
       type: 'datetime',
