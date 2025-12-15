@@ -74,19 +74,16 @@ const GROQ_QUERIES = {
       slug,
       category,
       description,
-      price,
-      currency,
       availability,
       heroImage,
       aspectRatio,
       images,
       tags,
       featured,
-      publishedAt,
-      stripePaymentLink
+      publishedAt
     }
   `,
-
+  
   GALLERY_BY_CATEGORY: `
     *[_type == "artwork" && category == $category] | order(publishedAt desc) {
       _id,
@@ -94,16 +91,13 @@ const GROQ_QUERIES = {
       slug,
       category,
       description,
-      price,
-      currency,
       availability,
       heroImage,
       aspectRatio,
       images,
       tags,
       featured,
-      publishedAt,
-      stripePaymentLink
+      publishedAt
     }
   `,
 
