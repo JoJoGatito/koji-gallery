@@ -28,8 +28,8 @@ export default {
       type: 'string',
       options: {
         list: [
-          {title: 'Original Character (OC)', value: 'OC'},
-          {title: 'Fan Art', value: 'FanArt'}
+          { title: 'Original Character (OC)', value: 'OC' },
+          { title: 'Fan Art', value: 'FanArt' }
         ]
       },
       validation: Rule => Rule.required()
@@ -38,44 +38,12 @@ export default {
       name: 'description',
       title: 'Description',
       type: 'array',
-      of: [{type: 'block'}],
+      of: [{ type: 'block' }],
       validation: Rule => Rule.required()
-    },
-    {
-      name: 'price',
-      title: 'Price',
-      type: 'number',
-      validation: Rule => Rule.required().min(0)
-    },
-    {
-      name: 'currency',
-      title: 'Currency',
-      type: 'string',
-      options: {
-        list: [
-          {title: 'USD ($)', value: 'USD'},
-          {title: 'EUR (€)', value: 'EUR'},
-          {title: 'GBP (£)', value: 'GBP'}
-        ]
-      },
-      validation: Rule => Rule.required()
-    },
-    {
-      name: 'availability',
-      title: 'Availability',
-      type: 'string',
-      options: {
-        list: [
-          {title: 'Available', value: 'Available'},
-          {title: 'Sold Out', value: 'SoldOut'}
-        ]
-      },
-      validation: Rule => Rule.required(),
-      initialValue: 'Available'
     },
     {
       name: 'heroImage',
-      title: 'Hero Image',
+      title: 'Image',
       type: 'image',
       options: {
         hotspot: true
@@ -83,58 +51,24 @@ export default {
       validation: Rule => Rule.required()
     },
     {
-      name: 'images',
-      title: 'Additional Images',
-      type: 'array',
-      of: [
-        {
-          type: 'image',
-          options: {
-            hotspot: true
-          }
-        }
-      ],
-      validation: Rule => Rule.max(10)
-    },
-    {
-      name: 'tags',
-      title: 'Tags',
-      type: 'array',
-      of: [{type: 'string'}],
-      options: {
-        layout: 'tags'
-      },
-      validation: Rule => Rule.max(10)
-    },
-    {
-      name: 'featured',
-      title: 'Featured',
-      type: 'boolean',
-      description: 'Display this artwork prominently on the home page',
-      initialValue: false
-    },
-    {
       name: 'publishedAt',
       title: 'Published At',
       type: 'datetime',
       validation: Rule => Rule.required(),
       initialValue: () => new Date().toISOString()
-    },
+    }
   ],
   preview: {
     select: {
       title: 'title',
       category: 'category',
-      price: 'price',
-      currency: 'currency',
-      image: 'heroImage',
-      availability: 'availability'
+      image: 'heroImage'
     },
     prepare(selection) {
-      const {title, category, price, currency, image, availability} = selection;
+      const { title, category, image } = selection;
       return {
-        title: title,
-        subtitle: `${category} - ${currency} ${price} ${availability === 'SoldOut' ? '(Sold Out)' : ''}`,
+        title,
+        subtitle: category || 'Uncategorized',
         media: image
       };
     }
@@ -144,35 +78,21 @@ export default {
       title: 'Publish Date, New',
       name: 'publishedAtDesc',
       by: [
-        {field: 'publishedAt', direction: 'desc'}
+        { field: 'publishedAt', direction: 'desc' }
       ]
     },
     {
       title: 'Publish Date, Old',
       name: 'publishedAtAsc',
       by: [
-        {field: 'publishedAt', direction: 'asc'}
+        { field: 'publishedAt', direction: 'asc' }
       ]
     },
     {
       title: 'Title A-Z',
       name: 'titleAsc',
       by: [
-        {field: 'title', direction: 'asc'}
-      ]
-    },
-    {
-      title: 'Price Low-High',
-      name: 'priceAsc',
-      by: [
-        {field: 'price', direction: 'asc'}
-      ]
-    },
-    {
-      title: 'Price High-Low',
-      name: 'priceDesc',
-      by: [
-        {field: 'price', direction: 'desc'}
+        { field: 'title', direction: 'asc' }
       ]
     }
   ]

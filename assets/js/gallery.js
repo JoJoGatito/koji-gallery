@@ -98,16 +98,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     
-    // Initialize artwork data globally for access by other scripts
-    window.artworkData = new ArtworkDataManager();
-
-
-    // Replace hardcoded gallery images with Sanity-managed images when available
-    async function initializeGalleryImagesFromSanity() {
-        if (!window.artworkData || !window.sanityClient) {
-            console.warn('Sanity artwork data not available; using static gallery images');
-            return;
-        }
+        // Initialize artwork data globally for access by other scripts
+        window.artworkData = new ArtworkDataManager();
+    
+    
+        // Replace hardcoded gallery images with Sanity-managed images when available
+        async function initializeGalleryImagesFromSanity() {
+            console.log('[Gallery] Initializing gallery images from Sanity', {
+                hasSanityClient: !!window.sanityClient,
+                hasArtworkData: !!window.artworkData,
+                artworkDataLoaded: window.artworkData?.loaded
+            });
+    
+            if (!window.artworkData || !window.sanityClient) {
+                console.warn('Sanity artwork data not available; using static gallery images');
+                return;
+            }
 
         try {
             // Ensure Sanity artwork data is loaded
@@ -116,25 +122,53 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             const allArtworks = window.artworkData.getAllArtworks();
+            console.log('[Gallery] Artworks loaded for gallery:', {
+                count: allArtworks ? allArtworks.length : 0,
+                slugs: allArtworks ? allArtworks.map(art => art.slug?.current) : []
+            });
             if (!allArtworks || !allArtworks.length) {
                 console.warn('No artworks returned from Sanity; using static gallery images');
                 return;
             }
 
             const artworkCards = document.querySelectorAll('.artwork-card');
+            console.log('[Gallery] Found artwork cards in DOM:', artworkCards.length);
+
+            const normalizeTitle = (title) => {
+                return (title || '')
+                    .toString()
+                    .trim()
+                    .toLowerCase()
+                    .replace(/\s+/g, ' ');
+            };
+
             artworkCards.forEach(card => {
-                const addToCartBtn = card.querySelector('.btn-add-cart');
-                const slugFromDom = addToCartBtn?.dataset.artwork;
-                if (!slugFromDom) return;
+                const titleEl = card.querySelector('.artwork-title');
+                const imgEl = card.querySelector('.artwork-image');
+
+                if (!titleEl || !imgEl) {
+                    console.warn('[Gallery] Missing title or image element on card; skipping.', card);
+                    return;
+                }
+
+                const titleText = normalizeTitle(titleEl.textContent);
+                if (!titleText) {
+                    console.warn('[Gallery] Empty title text on card; skipping.', card);
+                    return;
+                }
 
                 const matchingArtwork = allArtworks.find(art =>
-                    art.slug?.current === slugFromDom
+                    normalizeTitle(art.title) === titleText
                 );
 
-                if (!matchingArtwork || !matchingArtwork.heroImage) return;
-
-                const imgEl = card.querySelector('.artwork-image');
-                if (!imgEl) return;
+                if (!matchingArtwork) {
+                    console.warn('[Gallery] No matching artwork found in Sanity for title:', titleEl.textContent);
+                    return;
+                }
+                if (!matchingArtwork.heroImage) {
+                    console.warn('[Gallery] Matching artwork has no heroImage in Sanity for title:', matchingArtwork.title);
+                    return;
+                }
 
                 const responsiveImage = window.sanityClient.processImageForResponsive(
                     matchingArtwork.heroImage,

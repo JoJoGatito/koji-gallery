@@ -7,9 +7,6 @@
 import { createClient } from 'https://esm.sh/@sanity/client@7';
 import imageUrlBuilder from 'https://esm.sh/@sanity/image-url@1';
 
-// Import sample data for development mode
-import sampleData from './sampleData.json' assert { type: 'json' };
-
 // Sanity client configuration
 const client = createClient({
   projectId: 't0ligyjl',
@@ -146,13 +143,14 @@ const GROQ_QUERIES = {
       `
     };
 
-// Sanity Client Class
+ // Sanity Client Class
 class SanityClient {
   constructor() {
     this.client = client;
     this.builder = builder;
-    this.developmentMode = this.checkDevelopmentMode();
-    this.sampleData = sampleData;
+    // Development/sample-data mode is disabled in production; always use live Sanity data
+    this.developmentMode = false;
+    this.sampleData = null;
   }
 
   // Check if development mode should be enabled
