@@ -18,12 +18,3 @@
   from = "/studio/*"
   to = "/studio/index.html"
   status = 200
-
-# Handle Sanity static assets
-# This fixes the 'disallowed MIME type' error by correctly mapping
-# /static/file.js requests to /studio/static/file.js where the actual files exist
-# This is required because Sanity Studio index.html references paths starting with /static/
-[[redirects]]
-  from = "/static/*"
-  to = "/studio/static/:splat"
-  status = 200
